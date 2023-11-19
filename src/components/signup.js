@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 
-const LoginPageRoot = styled.div`
+const SignupPageRoot = styled.div`
   position: relative;
   background-color: #fff;
   width: 100%;
@@ -51,6 +51,30 @@ const PasswordFormGroup = styled(Form.Group)`
   margin-bottom: 20px;
 `;
 
+const AccountTypeFormGroup = styled(Form.Group)`
+  width: 300px;
+  margin-bottom: 20px;
+`;
+
+const AccountTypeLabel = styled(Form.Label)`
+  font-size: 30px;
+  margin-bottom: 5px;
+`;
+
+const AccountTypeSelect = styled(Form.Control)`
+  width: 100%;
+`;
+
+const PhoneFormGroup = styled(Form.Group)`
+  width: 300px;
+  margin-bottom: 20px;
+`;
+
+const AddressFormGroup = styled(Form.Group)`
+  width: 300px;
+  margin-bottom: 20px;
+`;
+
 const SignInButton = styled(Button)`
   width: 200px;
   margin-top: 20px;
@@ -70,17 +94,19 @@ const DontHaveAnContainer = styled.div`
   color: #555;
 `;
 
-const LoginPage = () => {
-  const handleFacebookLogin = () => {
-    // Implement Facebook login logic
+const SignupPage = () => {
+  const [accountType, setAccountType] = useState("lawyer");
+
+  const handleAccountTypeChange = (e) => {
+    setAccountType(e.target.value);
   };
 
-  const handleGoogleLogin = () => {
-    // Implement Google login logic
+  const handleSignup = () => {
+    // Implement your signup logic here
   };
 
   return (
-    <LoginPageRoot>
+    <SignupPageRoot>
       <BackgroundImage
         alt=""
         src="/vector-justice-lawyer-logo-and-symbols-template-icons-app.jpg"
@@ -96,25 +122,47 @@ const LoginPage = () => {
           <Form.Control type="password" placeholder="Password" />
         </PasswordFormGroup>
 
+        <AccountTypeFormGroup>
+          <AccountTypeLabel>Account Type</AccountTypeLabel>
+          <AccountTypeSelect
+            as="select"
+            value={accountType}
+            onChange={handleAccountTypeChange}
+          >
+            <option value="lawyer">Lawyer</option>
+            <option value="client">Client</option>
+          </AccountTypeSelect>
+        </AccountTypeFormGroup>
+
+        <PhoneFormGroup>
+          <Label>Phone Number</Label>
+          <EmailInput type="tel" placeholder="123-456-7890" />
+        </PhoneFormGroup>
+
+        <AddressFormGroup>
+          <Label>Address</Label>
+          <EmailInput type="text" placeholder="123 Main St, City, Country" />
+        </AddressFormGroup>
+
         <Form.Check label="Remember Me" />
 
-        <SignInButton variant="dark">Sign In</SignInButton>
+        <SignInButton variant="dark" onClick={handleSignup}>
+          Sign Up
+        </SignInButton>
 
         <SocialLoginContainer>
-          <SocialLoginButton variant="primary" onClick={handleFacebookLogin}>
+          <SocialLoginButton variant="primary">
             Sign in with Facebook
           </SocialLoginButton>
-          <SocialLoginButton variant="danger" onClick={handleGoogleLogin}>
+          <SocialLoginButton variant="danger">
             Sign in with Google
           </SocialLoginButton>
         </SocialLoginContainer>
 
-        <DontHaveAnContainer>
-          Don’t have an account? <span>Sign Up</span>
-        </DontHaveAnContainer>
+       
       </ContentContainer>
-    </LoginPageRoot>
+    </SignupPageRoot>
   );
 };
 
-export default LoginPage;
+export default SignupPage;
