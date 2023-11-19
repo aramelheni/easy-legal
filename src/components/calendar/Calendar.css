@@ -1,0 +1,85 @@
+#header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    text-align: center;
+    font-family: "mying";
+
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+#year {
+    position: absolute;
+    left: 50px;
+}
+
+#month {
+    width: 300px;
+}
+
+.arrow-button {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+#calendar {}
+
+#days-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3px;
+}
+
+.day-card-body {
+    max-width: 350px;
+    min-width: 350px;
+    padding: 10px 5px 10px 5px;
+    border: 1px solid rgb(237, 237, 237);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.day-card-tasks {
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.task-panel {
+    background-color: rgb(253, 253, 253);
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid rgb(231, 231, 231);
+}
+
+.task-panel-title {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.task-panel-time {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}

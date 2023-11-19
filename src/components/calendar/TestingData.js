@@ -1,0 +1,22 @@
+export const sentences = [
+  'Review case documents',
+  'Prepare legal brief',
+  'Conduct legal research',
+  'Draft contracts',
+  'Analyze legal statutes',
+  'Attend court hearings',
+  'Meet with clients',
+  'Negotiate settlements',
+  'File legal motions',
+  'Provide legal advice',
+  'Research precedents',
+  'Prepare for depositions',
+  'Update legal databases',
+  'Draft legal opinions',
+  'Review legal agreements',
+  'Assist in trial preparation',
+  'Conduct legal interviews',
+  'Manage legal documentation',
+  'Participate in legal conferences',
+  'Prepare for legal presentations'
+];
