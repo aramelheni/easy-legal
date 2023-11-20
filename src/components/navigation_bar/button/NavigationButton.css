@@ -1,0 +1,29 @@
+.navigation-button{
+    height: 40px;
+    width: 70%;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+.content{
+    margin: 0;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    gap: 30px;
+}
+
+.title{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 20;
+}
+
+.icon{
+    width: 20px;
+}
