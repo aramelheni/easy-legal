@@ -1,4 +1,4 @@
-import { CardGroup, Card, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import './Calendar.css'
@@ -66,9 +66,9 @@ export default function Calendar() {
 
     //Checks whether or not a given day is today
     const isToday = (dayObject) =>
-        dayObject.index == todayIndex &&
-        dayObject.month == todayMonth &&
-        dayObject.year == todayYear;
+        dayObject.index === todayIndex &&
+        dayObject.month === todayMonth &&
+        dayObject.year === todayYear;
     console.log(new Date(2023, 10, 19).toLocaleDateString('en-US', { weekday: 'long' }));
 
     //Buttons handlers
@@ -84,7 +84,7 @@ export default function Calendar() {
         }
 
         setMonth(newMonth);
-        if (year != newYear)
+        if (year !== newYear)
             setYear(newYear);
 
         setDays(GetCalendarForMonth(newMonth, newYear));
@@ -101,7 +101,7 @@ export default function Calendar() {
         }
 
         setMonth(newMonth);
-        if (year != newYear)
+        if (year !== newYear)
             setYear(year - 1);
 
         setDays(GetCalendarForMonth(newMonth, newYear));
