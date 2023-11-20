@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import './App.css';
+import { httpGet, httpPost } from './Connection';
 
 function App() {
   return (
