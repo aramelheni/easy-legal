@@ -1,4 +1,3 @@
-import { Container, Row, Col } from "react-bootstrap";
 import "./NavigationBar.css"
 import NavigationButton from "./button/NavigationButton";
 import { navigationSettings } from "../../Navigation";
@@ -13,6 +12,9 @@ export default function NavigationBar() {
                     <NavigationButton navigationSetting={setting} />
                 ))
             }
+        </div>
+        <div id="account-panel">
+            
         </div>
     </div >);
 }
