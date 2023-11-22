@@ -1,5 +1,6 @@
 :root {
   --primary-color: rgb(14, 0, 65);
+  --white-ghost: rgba(255, 255, 255, 0.168);
   --secondary-color: #ffffff;
   --accent-color: #28a745;
 }

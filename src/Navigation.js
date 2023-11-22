@@ -5,7 +5,7 @@ export const navigationSettings = [
         path: "/calendar",
         element: (
             <div>
-                CALENDAR
+                CALENDAAAAAR
             </div>
         )
     },
