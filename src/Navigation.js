@@ -1,12 +1,22 @@
 export const navigationSettings = [
     {
-        title: "Chat",
-        icon: "/icons/chat.png",
-        path: "/chat"
-    },
-    {
         title: "Calendar",
         icon: "/icons/calendar.png",
-        href: "/Calendar"
+        path: "/calendar",
+        element: (
+            <div>
+                CALENDAR
+            </div>
+        )
+    },
+    {
+        title: "Chat",
+        icon: "/icons/chat.png",
+        path: "/chat",
+        element: (
+            <div>
+                CHAT
+            </div>
+        )
     }
 ]

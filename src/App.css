@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #99272D;
+  --primary-color: rgb(14, 0, 65);
   --secondary-color: #ffffff;
   --accent-color: #28a745;
 }
@@ -7,6 +7,19 @@
 #app{
   background-color: var(--primary-color);
   height: 100vh;
-  width: 100%;
   font-family: "mying";
+}
+
+#app-content{
+  background-color: var(--secondary-color);
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.app-col{
+  padding: 0px;
+  margin: 0px;
 }
