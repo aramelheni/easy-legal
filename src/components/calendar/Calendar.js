@@ -4,6 +4,7 @@ import { useState } from 'react';
 import './Calendar.css'
 
 import { sentences } from './TestingData.js';
+import DayCard from './day_card/DayCard.js';
 function GetRandomTask(id) {
     return ({
         id,
@@ -52,24 +53,19 @@ export default function Calendar() {
     ];
 
     //Memorize information about today's date
-    const today = new Date();
-    const todayIndex = today.getDate();
-    const todayMonth = today.getMonth();
-    const todayYear = today.getFullYear();
+    const todayDate = new Date();
+    const today = { 
+        index: todayDate.getDate(), 
+        month: todayDate.getMonth(), 
+        year: todayDate.getFullYear()
+    }
 
     //The year and month of the displayed calendar
-    const [month, setMonth] = useState(today.getMonth());
-    const [year, setYear] = useState(today.getFullYear());
+    const [month, setMonth] = useState(today.month);
+    const [year, setYear] = useState(today.year);
 
     //List full of days and their data
     const [days, setDays] = useState(GetCalendarForMonth(month, year));
-
-    //Checks whether or not a given day is today
-    const isToday = (dayObject) =>
-        dayObject.index === todayIndex &&
-        dayObject.month === todayMonth &&
-        dayObject.year === todayYear;
-    console.log(new Date(2023, 10, 19).toLocaleDateString('en-US', { weekday: 'long' }));
 
     //Buttons handlers
     const nextMonth_handle = () => {
@@ -117,27 +113,8 @@ export default function Calendar() {
             </div>
             <div id="days-container">
                 {
-                    days.map((dayObj) => (
-                        <div key={dayObj.index} className="day-card-body" border={(isToday(dayObj) ? "primary" : "")}>
-                            <Card.Title className="text-center" style={{ fontFamily: "mying" }}>{dayObj.index}</Card.Title>
-                            <Card.Subtitle className="text-center mb-2 text-muted" style={{ fontFamily: "mying" }}>{dayObj.day}</Card.Subtitle>
-                            <div className="day-card-tasks">
-                                {
-                                    dayObj.tasks.map(task => (
-                                        <Container key={task.id} className="task-panel" >
-                                            <Row>
-                                                <Col lg="2">
-                                                    <p className="task-panel-time">4PM</p>
-                                                </Col>
-                                                <Col>
-                                                    <p className="task-panel-title">{task.title}</p>
-                                                </Col>
-                                            </Row>
-                                        </Container>
-                                    ))
-                                }
-                            </div>
-                        </div>
+                    days.map((day) => (
+                        <DayCard today={today} day={day} />
                     ))}
             </div>
         </div>);

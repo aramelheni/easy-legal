@@ -1,0 +1,23 @@
+.item {
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid rgb(237, 237, 237);
+    display: inline-block;
+
+    &:hover{
+        background-color: var(pri);
+    }
+}
+
+.title {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 13px 0px 13px 0px;
+}
+
+.time {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 13px 0px 13px 0px;
+}

@@ -1,0 +1,17 @@
+.card {
+    max-width: 350px;
+    min-width: 350px;
+    padding: 10px 5px 10px 5px;
+    border: 1px solid rgb(237, 237, 237);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.tasks {
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
