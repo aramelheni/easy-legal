@@ -6,8 +6,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { navigationSettings } from "./Navigation";
 
 function App() {
-
-
   return (
     <Container id="app" fluid>
       <Row>
