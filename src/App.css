@@ -36,7 +36,7 @@
 }
 
 .horizontal-line-secondary{
-  margin: 0px;
+  margin: auto;
   width: 90%;
   border-bottom: 1px solid var(--secondary-color);
 }

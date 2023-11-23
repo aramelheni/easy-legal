@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import ChatContent from './ChatContent.js';
+import ChatContent from './ChatWindow/ChatContent.js';
 import ContactList from './contacts/ContactList.js';
 import { useState } from 'react';
 import "./Chat.css"

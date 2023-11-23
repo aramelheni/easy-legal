@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+.window {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow-x: hidden;
+
+  padding: 0;
+  height: 100%;
+}
+
+.conversation {
+  overflow-y: auto;
+  width: 100%;
+  height: 70%;
+  margin: 0;
+  padding: 0;
+}
+.beautify{
+    margin-left:1%;
+    box-sizing: border-box;
+}
+
+.contact-name {
+  display: flex;
+  flex-direction: row;
+
+  height: 10%;
+}
+
+.text-input {
+  margin: auto;
+  padding: 0;
+  width: 80%;
+  height: 15%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(13, 13, 58);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.line {
+  width: 100%; /* Adjust the width of the line as needed */
+  height: 1px; /* Set the height of the line */
+  background-color: black; /* Set the color of the line */
+  /* Add margin for spacing */
+}
+
+.send-button {
+}

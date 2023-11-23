@@ -1,4 +1,4 @@
-import Chat from "./components/chat/Chat.js";
+import Chat from "./components/Chat/Chat.js";
 
 export const navigationSettings = [
     {
@@ -17,6 +17,6 @@ export const navigationSettings = [
         icon: "/icons/chat.png",
         path: "/chat",
         customPaper: true,
-        element: (<Chat/>)
+        element: (<Chat />)
     }
 ]
