@@ -33,7 +33,7 @@ function Chat() {
                 <ContactList />
             </div>
             <div className="chat">
-                <ChatContent />
+                <ChatContent /> 
             </div>
         </div >
     );
