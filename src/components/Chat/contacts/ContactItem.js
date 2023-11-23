@@ -1,9 +1,9 @@
 import Container from 'react-bootstrap/Container';
 import "./ContactItem.css"
 
-function ContactItem({ name, lastname, status, picture }) {
+function ContactItem({ name, id, lastname, status, picture, selectChatHandler }) {
     const handleSelectContact = (event) => {
-        console.log(name);
+        selectChatHandler(id);
     }
 
     return (
