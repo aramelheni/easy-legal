@@ -10,8 +10,8 @@ export default function NavigationBar() {
             <div id="navbar-content">
                 <div id="buttons">
                     {
-                        navigationSettings.map((setting) => (
-                            <NavigationButton navigationSetting={setting} />
+                        navigationSettings.map((setting, index) => (
+                            <NavigationButton key={index} navigationSetting={setting} />
                         ))
                     }
                 </div>
