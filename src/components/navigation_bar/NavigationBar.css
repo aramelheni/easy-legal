@@ -37,12 +37,6 @@
     flex-grow: 1;
 }
 
-.horizontal-line{
-    margin: 0px;
-    width: 90%;
-    border-bottom: 1px solid white;
-}
-
 #account-panel{
     width: 93%;
     height: 100px;

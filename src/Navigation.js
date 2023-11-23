@@ -1,8 +1,11 @@
+import Chat from "./components/chat/Chat.js";
+
 export const navigationSettings = [
     {
         title: "Calendar",
         icon: "/icons/calendar.png",
         path: "/calendar",
+        customPaper: false,
         element: (
             <div>
                 CALENDAAAAAR
@@ -13,10 +16,7 @@ export const navigationSettings = [
         title: "Chat",
         icon: "/icons/chat.png",
         path: "/chat",
-        element: (
-            <div>
-                CHAT
-            </div>
-        )
+        customPaper: true,
+        element: (<Chat/>)
     }
 ]

@@ -13,11 +13,15 @@ function App() {
           <NavigationBar />
         </Col>
         <Col className="vh-100" lg={10} style={{ padding: "5px" }}>
-          <div id="app-content">
-            <Routes>
+          <div className="app-content">
+            <Routes>  
               {
-                navigationSettings.map(navigationSetting=>(
-                  <Route path={navigationSetting.path} element={navigationSetting.element} />
+                navigationSettings.map((navigationSetting, index)=>(
+                  <Route path={navigationSetting.path} element={
+                    <div className={navigationSetting.customPaper? "" : "app-paper"}>
+                      {navigationSetting.element}
+                    </div>
+                  } key={index}/>
                 ))
               }
             </Routes>
