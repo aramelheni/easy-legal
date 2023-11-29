@@ -3,15 +3,9 @@ import "./TaskItem.css"
 
 export default function TaskItem({ task }) {
     return (
-        <Container key={task.id} className="item" >
-            <Row>
-                <Col lg="2">
-                    <p className="time">4PM</p>
-                </Col>
-                <Col>
-                    <p className="title">{task.title}</p>
-                </Col>
-            </Row>
-        </Container>
+        <div class="calendar-task-item">
+            <p className="calendar-task-time">4PM</p>
+            <p className="calendar-task-title">{task.title}</p>
+        </div>
     );
 }

@@ -1,17 +1,52 @@
-.card {
-    max-width: 350px;
-    min-width: 350px;
+.day-card {
+    max-width: 200px;
+    min-width: 200px;
+    height: 250px;
     padding: 10px 5px 10px 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+
     border: 1px solid rgb(237, 237, 237);
+    transition: background-color 0.1s ease;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
-.tasks {
-    height: 150px;
+.day-card:hover{
+    background-color: rgb(245, 245, 245);
+}
+
+.day-card-index{
+    font-family: "mying";
+    font-size: 20px;
+    margin: 0;
+}
+
+.day-card-day{
+    font-family: "mying";
+}
+
+.day-card-tasks {
     overflow: hidden;
+    overflow-y: auto;
+    
     display: flex;
     flex-direction: column;
     gap: 3px;
+
+    flex: 1;
 }
 
+.day-card-today{
+    border: 2px solid rgba(52, 52, 255, 0.368);
+}
+
+.day-card-today h1{
+    color: rgba(52, 52, 255, 1);
+    font-weight: bold;
+}

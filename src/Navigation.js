@@ -1,12 +1,12 @@
+import Calendar from "./components/calendar/Calendar.js"
+
 export const navigationSettings = [
     {
         title: "Calendar",
         icon: "/icons/calendar.png",
         path: "/calendar",
         element: (
-            <div>
-                CALENDAAAAAR
-            </div>
+            <Calendar />
         )
     },
     {

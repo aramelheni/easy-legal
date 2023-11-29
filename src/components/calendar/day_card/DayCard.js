@@ -1,26 +1,29 @@
-import { Container, Card, Row, Col } from "react-bootstrap";
 import "./DayCard.css"
 import TaskItem from "./task_item/TaskItem";
 
-export default function DayCard({ today, day }) {
+export default function DayCard({ today, day, tasks, selectDay }) {
     //Checks whether or not a given day is today
     const isToday = (day) =>
         day.index === today.index &&
         day.month === today.month &&
         day.year === today.year;
 
+    const handleSelectDay = ()=>{
+        selectDay(day);
+    }
+
     return (
-        <div key={day.index} className="card" border={(isToday(day) ? "primary" : "")}>
-            <Card.Title className="text-center" style={{ fontFamily: "mying" }}>{day.index}</Card.Title>
-            <Card.Subtitle className="text-center mb-2 text-muted" style={{ fontFamily: "mying" }}>{day.day}</Card.Subtitle>
-            <div className="tasks">
+        <button key={day.index} className={"day-card"+ (isToday(day) ? " day-card-today" : "")} onClick={handleSelectDay}>
+            <h1 className="day-card-index">{day.index}</h1>
+            <p className="day-card-day">{day.day}</p>
+            <div className="day-card-tasks">
                 {
-                    day.tasks.map(task => (
+                    tasks.map(task => (
                         <TaskItem task={task} />
                     ))
                 }
             </div>
-        </div>
+        </button>
 
     );
 }

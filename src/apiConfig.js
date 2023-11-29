@@ -1,2 +1,2 @@
-const url = "http://localhost:6005/api";
-export default url;
+const serverUrl = "http://localhost:6005/api";
+export default serverUrl;

@@ -1,10 +1,12 @@
-import { Card } from 'react-bootstrap';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useState } from 'react';
 import './Calendar.css'
+import { useState } from 'react';
+import axios from 'axios';
 
 import { sentences } from './TestingData.js';
 import DayCard from './day_card/DayCard.js';
+import NewTask from './new_task/NewTask.js';
+import { useEffect } from 'react';
+
 function GetRandomTask(id) {
     return ({
         id,
@@ -22,23 +24,13 @@ function GetCalendarForMonth(month, year) {
     const nDays = new Date(year, month + 1, 0).getDate();
     for (let index = 1; index <= nDays; index++) {
         const date = new Date(year, month, index);
-        //Generate random tasks
-        const tasks = [];
-        if (Math.random() > 0.5) {
-            const nTasks = Math.floor(Math.random() * 4);
-            for (let i = 0; i < nTasks; i++) {
-                tasks.push(GetRandomTask(i));
-            }
-        }
         const dayObj = {
             //date: date,
             index,
             day: date.toLocaleDateString('en-US', { weekday: 'long' }),
             month: month,
-            year: year,
-            tasks
+            year: year
         };
-        console.log("index: " + index + " : " + dayObj.day);
         days.push(dayObj);
     }
 
@@ -46,6 +38,10 @@ function GetCalendarForMonth(month, year) {
 }
 
 export default function Calendar() {
+    useEffect(async () => {
+        
+    }, []);
+
     //Used for guessing the month's name using the month's index
     var monthNames = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -54,9 +50,9 @@ export default function Calendar() {
 
     //Memorize information about today's date
     const todayDate = new Date();
-    const today = { 
-        index: todayDate.getDate(), 
-        month: todayDate.getMonth(), 
+    const today = {
+        index: todayDate.getDate(),
+        month: todayDate.getMonth(),
         year: todayDate.getFullYear()
     }
 
@@ -66,6 +62,8 @@ export default function Calendar() {
 
     //List full of days and their data
     const [days, setDays] = useState(GetCalendarForMonth(month, year));
+    //The day selected by the user
+    const [selectedDay, setSelectedDay] = useState(null);
 
     //Buttons handlers
     const nextMonth_handle = () => {
@@ -103,19 +101,31 @@ export default function Calendar() {
         setDays(GetCalendarForMonth(newMonth, newYear));
     }
 
+    //Indicates whether or not is creating a new task
+    const [isCreatingTask, setIsCreatingTask] = useState(false);
+    const handleSelectDay = (day) => {
+        setSelectedDay(day);
+        setIsCreatingTask(true);
+    }
+    const terminateCreateTask = () => {
+        setIsCreatingTask(false);
+    }
+
     return (
-        <div id="calendar">
-            <div id="header">
+        <div className="calendar">
+            {(isCreatingTask && selectedDay != null) && <NewTask day={selectedDay} terminateCreateTask={terminateCreateTask} />}
+            <div className="calendar-header">
+                <h1 id="year">{year}</h1>
                 <button className="arrow-button" onClick={previousMonth_handle}>{"<"}</button>
                 <h1 id="month">{monthNames[month]}</h1>
                 <button className="arrow-button" onClick={nextMonth_handle}>{">"}</button>
-                <h1 id="year">{year}</h1>
             </div>
             <div id="days-container">
                 {
                     days.map((day) => (
-                        <DayCard today={today} day={day} />
-                    ))}
+                        <DayCard today={today} day={day} tasks={[]} selectDay={handleSelectDay} />
+                    ))
+                }
             </div>
         </div>);
 }
