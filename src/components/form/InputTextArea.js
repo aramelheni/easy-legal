@@ -4,6 +4,8 @@ import { useState } from "react";
 
 export default function InputTextArea({ value, onChange, placeholder, errorMessage }) {
     const [rows, setRows] = useState(1);
+    if(value == null)
+        value = "";
 
     const handleChange = (event) => {
         const content = event.target.value;
@@ -13,9 +15,6 @@ export default function InputTextArea({ value, onChange, placeholder, errorMessa
         if (rows > 4)
             rows = 4;
         setRows(rows);
-
-        if (onChange != null)
-            onChange();
     }
 
     return (

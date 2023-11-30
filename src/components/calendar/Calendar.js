@@ -8,9 +8,9 @@ import DayCard from './day_card/DayCard.js';
 import NewTask from './new_task/NewTask.js';
 import { useEffect } from 'react';
 
-async function fetchTasks() {
+async function fetchTasks(fromDate, toDate) {
     let tasks;
-    await axios.get(apiUrl + "/tasks")
+    await axios.get(apiUrl + "/tasks/" + fromDate.toISOString() + "/" + toDate.toISOString())
         .then(response => {
             tasks = response.data.tasks;
             tasks.forEach(task => {
@@ -90,7 +90,7 @@ export default function Calendar() {
         })
 
         //Fetch tasks
-        let tasks = await fetchTasks();
+        let tasks = await fetchTasks(new Date(newYear, newMonth, 1), new Date(newYear, newMonth+1, 0));
         if (tasks != null) {
             tasks.forEach(task => {
                 const dayIndex = task.date.getDate();
@@ -108,26 +108,29 @@ export default function Calendar() {
     }
 
     //Categories
-    const [categories, setCategories] = useState(null);
+    const [taskCategories, setTaskCategories] = useState(null);
 
-    useEffect(async () => {
-        setIsLoading(true);
+    useEffect(() => {
+        const setup = async () => {
+            //Fetch categories from the server
+            setIsLoading(true);
+            let areCategoriesFetched = false;
+            const fetchCategories = async () => {
+                axios.get(apiUrl + "/task-categories").then(response => {
+                    setTaskCategories(response.data.categories);
+                    areCategoriesFetched = true;
+                }).catch(error => {
+                    console.log("Could not fetch task categories: ", error);
+                });
+            }
+            await fetchCategories();
+            setIsLoading(false);
 
-        //Fetch categories from the server
-        let isCategoriesFetched = false;
-        const fetchCategories = async () => {
-            axios.get(apiUrl + "/task-categories").then(response => {
-                setCategories(response.data);
-                isCategoriesFetched = true;
-            }).catch(error => {
-                console.log("Could not fetch task categories: ", error);
-            });
+            //Fill up the calendar
+            setCalendar(today.month, today.year);
         }
-        await fetchCategories();
-        setIsLoading(false);
 
-        //Fill up the calendar
-        setCalendar(today.month, today.year);
+        setup();
     }, []);
 
     //Buttons handlers
@@ -165,7 +168,16 @@ export default function Calendar() {
         setSelectedDay(day);
         setIsCreatingTask(true);
     }
-    const terminateCreateTask = () => {
+    const onTaskCreationCanceled = () => {
+        setIsCreatingTask(false);
+    }
+    const onTaskCreationSucceeded = (task) => {
+        setCalendarDays(calendarDays.map(calendarDay => {
+            if (calendarDay.day.index == task.date.getDate() && calendarDay.day.month == task.date.getMonth() && task.date.getFullYear() == calendarDay.day.year) {
+                return { ...calendarDay, tasks: [...calendarDay.tasks, task] };
+            }
+            return calendarDay;
+        }));
         setIsCreatingTask(false);
     }
 
@@ -173,7 +185,14 @@ export default function Calendar() {
         <div className="calendar">
             {isLoading && <Loader />}
 
-            {(isCreatingTask && selectedDay != null) && <NewTask day={selectedDay} terminateCreateTask={terminateCreateTask} />}
+            {(isCreatingTask && selectedDay != null) &&
+                <NewTask
+                    day={selectedDay}
+                    onTaskCreationCanceled={onTaskCreationCanceled}
+                    onTaskCreationSucceeded={onTaskCreationSucceeded}
+                    taskCategories={taskCategories}
+                />
+            }
             <div className="calendar-header">
                 <h1 id="year">{year}</h1>
                 <button className="arrow-button" onClick={previousMonth_handle}>{"<"}</button>

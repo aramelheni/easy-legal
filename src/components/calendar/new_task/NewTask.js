@@ -8,54 +8,51 @@ import InputTextArea from "../../form/InputTextArea";
 import ModalForm from "../../form/ModalForm";
 import apiUrl from "../../../apiConfig.js"
 
-export default function NewTask({ day, terminateCreateTask }) {
+export default function NewTask({ day, taskCategories, onTaskCreationCanceled, onTaskCreationSucceeded }) {
+    const now = new Date();
+
     const [task, setTask] = useState({
         id: "",
-        date: new Date(day.year, day.month, day.index, 0, 0),
+        date: new Date(day.year, day.month, day.index, now.getHours() + 1, 0),
         title: "",
-        description: "",
-        category: ""
+        description: null,
+        category: taskCategories[0]
     });
-    const [time, setTime] = useState(null);
     const [submissionError, setSubmissionError] = useState("");
 
     //Time
     const handleTimeChange = (newTime) => {
-        setTime(newTime);
-        const hours = newTime.getHours() + 1;
-        const minutes = newTime.getMinutes();
-        setTask({ ...task, date: new Date(day.year, day.month, day.index, hours, minutes) });
+        if (newTime != null)
+            setTask({ ...task, date: newTime });
+        else
+            console.log("BNUNUNUNU");
     };
 
     //Category
-    const categories = ["Meeting", "Payment", "Board", "Custom"];
     const handleCategoryChange = (e) => {
         setTask({ ...task, category: e.target.value });
     };
 
     //Title
-    const [isTitleValid, setTitleValid] = useState(false);
     const [titleError, setTitleError] = useState(null);
     const handleTitleChange = (title) => {
-        setTask({ ...task, title: title });
+        setTask({ ...task, title });
         if (titleError !== null)
             setTitleError(null);
     }
 
     const checkTitleValid = () => {
         if (task.title.length < 3) {
-            setTitleValid(false);
             setTitleError("Title must contain at least 3 characters");
             return false;
         }
 
-        setTitleValid(true);
         return true;
     }
 
     //Description
     const handleDescriptionChange = description => {
-        setTask({ ...task, description: description });
+        setTask({ ...task, description });
     }
 
     //Create Task
@@ -72,7 +69,7 @@ export default function NewTask({ day, terminateCreateTask }) {
 
     //Cancel Creation
     const handleCancelCreate = () => {
-        terminateCreateTask();
+        onTaskCreationCanceled();
     }
 
     //Server request
@@ -82,7 +79,7 @@ export default function NewTask({ day, terminateCreateTask }) {
             .then(response => {
                 setIsLoading(false);
                 if (response.status === 200)
-                    terminateCreateTask();
+                    onTaskCreationSucceeded(task);
             })
             .catch(error => {
                 setSubmissionError(error.message);
@@ -103,6 +100,7 @@ export default function NewTask({ day, terminateCreateTask }) {
                 placeholder="Title"
                 onChange={handleTitleChange}
                 errorMessage={titleError}
+                trim
             />
 
             <label>Add a description:</label>
@@ -114,7 +112,7 @@ export default function NewTask({ day, terminateCreateTask }) {
 
             <label>Time:</label>
             <DatePicker
-                selected={time}
+                selected={task.date}
                 onChange={handleTimeChange}
                 showTimeSelect
                 showTimeSelectOnly
@@ -124,8 +122,8 @@ export default function NewTask({ day, terminateCreateTask }) {
             <label>Category:</label>
             <select value={task.category} onChange={handleCategoryChange}>
                 {
-                    categories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
+                    taskCategories.map((category, index) => (
+                        <option key={index} value={category.title}>{category.title}</option>
                     ))
                 }
             </select>
