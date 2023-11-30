@@ -9,9 +9,7 @@ import axios from 'axios';
 import apiUrl from '../../apiConfig.js';
 
 function Chat() {
-    const [chat, setChat] = useState({
-        messages: []
-    });
+    const [chat, setChat] = useState();
 
     useEffect(() => {
         axios.get(apiUrl + "/users/chat/0/1")

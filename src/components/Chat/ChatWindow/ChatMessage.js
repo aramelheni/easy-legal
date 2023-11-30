@@ -1,9 +1,10 @@
 import React from 'react'
+import './ChatMessage.css'
+export default function ChatMessage({message}) {
+    return (
+        <div className='chat-box'>
 
-export default function ChatMessage() {
-  return (
-    <div className='chat-message'>
-        <p>Je T'aime</p>
-    </div>
-  )
+            <p>{message.content}</p>
+        </div>
+    )
 }
