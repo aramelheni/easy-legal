@@ -1,7 +1,7 @@
 import "./InputForm.css"
 import "./InputText.css"
 
-export default function InputText({ type, placeholder, onChange, isValid, errorMessage }) {
+export default function InputText({ type, placeholder, onChange, errorMessage }) {
     const handleChange = (event) => {
         onChange(event.target.value);
     }
@@ -9,7 +9,7 @@ export default function InputText({ type, placeholder, onChange, isValid, errorM
     return (
         <>
             <input type={type} placeholder={placeholder} onChange={handleChange} />
-            {!isValid && <p className="input-error">{errorMessage}</p>}
+            {errorMessage != null && <p className="input-error">{errorMessage}</p>}
         </>
     );
 }

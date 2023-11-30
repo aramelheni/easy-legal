@@ -1,20 +1,27 @@
 import './Calendar.css'
 import { useState } from 'react';
 import axios from 'axios';
+import apiUrl from "../../apiConfig.js"
 
-import { sentences } from './TestingData.js';
+import Loader from "../loader/Loader";
 import DayCard from './day_card/DayCard.js';
 import NewTask from './new_task/NewTask.js';
 import { useEffect } from 'react';
 
-function GetRandomTask(id) {
-    return ({
-        id,
-        title: sentences[Math.floor(Math.random() * sentences.length)],
-        day: Math.floor(Math.random() * 31),
-        month: 10,
-        status: Math.random() < 0.5
-    });
+async function fetchTasks() {
+    let tasks;
+    await axios.get(apiUrl + "/tasks")
+        .then(response => {
+            tasks = response.data.tasks;
+            tasks.forEach(task => {
+                task.date = new Date(task.date);
+            })
+        })
+        .catch(error => {
+            console.log("Error fetching tasks: ", error);
+            return null;
+        });
+    return tasks;
 }
 
 function GetCalendarForMonth(month, year) {
@@ -38,9 +45,8 @@ function GetCalendarForMonth(month, year) {
 }
 
 export default function Calendar() {
-    useEffect(async () => {
-        
-    }, []);
+    //When true, displays a black loading overlay 
+    const [isLoading, setIsLoading] = useState(false);
 
     //Used for guessing the month's name using the month's index
     var monthNames = [
@@ -60,10 +66,69 @@ export default function Calendar() {
     const [month, setMonth] = useState(today.month);
     const [year, setYear] = useState(today.year);
 
-    //List full of days and their data
-    const [days, setDays] = useState(GetCalendarForMonth(month, year));
     //The day selected by the user
     const [selectedDay, setSelectedDay] = useState(null);
+
+    //List full of objects, each containing a day and a list of tasks
+    const [calendarDays, setCalendarDays] = useState([]);
+    const setCalendar = async (newMonth, newYear) => {
+        setIsLoading(true);
+
+        if (month != newMonth)
+            setMonth(newMonth);
+        if (year != newYear)
+            setYear(newYear);
+
+        //Fetch days for that month
+        const newDays = GetCalendarForMonth(newMonth, newYear);
+        let newCalendarDays = [];
+        newDays.forEach(day => {
+            newCalendarDays.push({
+                day,
+                tasks: []
+            })
+        })
+
+        //Fetch tasks
+        let tasks = await fetchTasks();
+        if (tasks != null) {
+            tasks.forEach(task => {
+                const dayIndex = task.date.getDate();
+                newCalendarDays.forEach(calendarDay => {
+                    if (calendarDay.day.index == dayIndex) {
+                        calendarDay.tasks.push(task);
+                    }
+                });
+            });
+
+        }
+
+        setIsLoading(false);
+        setCalendarDays(newCalendarDays);
+    }
+
+    //Categories
+    const [categories, setCategories] = useState(null);
+
+    useEffect(async () => {
+        setIsLoading(true);
+
+        //Fetch categories from the server
+        let isCategoriesFetched = false;
+        const fetchCategories = async () => {
+            axios.get(apiUrl + "/task-categories").then(response => {
+                setCategories(response.data);
+                isCategoriesFetched = true;
+            }).catch(error => {
+                console.log("Could not fetch task categories: ", error);
+            });
+        }
+        await fetchCategories();
+        setIsLoading(false);
+
+        //Fill up the calendar
+        setCalendar(today.month, today.year);
+    }, []);
 
     //Buttons handlers
     const nextMonth_handle = () => {
@@ -77,12 +142,9 @@ export default function Calendar() {
             newYear++;
         }
 
-        setMonth(newMonth);
-        if (year !== newYear)
-            setYear(newYear);
-
-        setDays(GetCalendarForMonth(newMonth, newYear));
+        setCalendar(newMonth, newYear);
     }
+
     const previousMonth_handle = () => {
         let newMonth = month;
         let newYear = year;
@@ -94,11 +156,7 @@ export default function Calendar() {
             newYear--;
         }
 
-        setMonth(newMonth);
-        if (year !== newYear)
-            setYear(year - 1);
-
-        setDays(GetCalendarForMonth(newMonth, newYear));
+        setCalendar(newMonth, newYear);
     }
 
     //Indicates whether or not is creating a new task
@@ -113,6 +171,8 @@ export default function Calendar() {
 
     return (
         <div className="calendar">
+            {isLoading && <Loader />}
+
             {(isCreatingTask && selectedDay != null) && <NewTask day={selectedDay} terminateCreateTask={terminateCreateTask} />}
             <div className="calendar-header">
                 <h1 id="year">{year}</h1>
@@ -122,8 +182,8 @@ export default function Calendar() {
             </div>
             <div id="days-container">
                 {
-                    days.map((day) => (
-                        <DayCard today={today} day={day} tasks={[]} selectDay={handleSelectDay} />
+                    calendarDays.map((calendarDay, i) => (
+                        <DayCard key={i} today={today} calendarDay={calendarDay} tasks={[]} selectDay={handleSelectDay} />
                     ))
                 }
             </div>

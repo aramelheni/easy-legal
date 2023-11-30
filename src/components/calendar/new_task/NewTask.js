@@ -11,16 +11,20 @@ import apiUrl from "../../../apiConfig.js"
 export default function NewTask({ day, terminateCreateTask }) {
     const [task, setTask] = useState({
         id: "",
-        time: null,
+        date: new Date(day.year, day.month, day.index, 0, 0),
         title: "",
         description: "",
         category: ""
     });
+    const [time, setTime] = useState(null);
     const [submissionError, setSubmissionError] = useState("");
 
     //Time
-    const handleTimeChange = (time) => {
-        setTask({ ...task, time: time });
+    const handleTimeChange = (newTime) => {
+        setTime(newTime);
+        const hours = newTime.getHours() + 1;
+        const minutes = newTime.getMinutes();
+        setTask({ ...task, date: new Date(day.year, day.month, day.index, hours, minutes) });
     };
 
     //Category
@@ -31,16 +35,22 @@ export default function NewTask({ day, terminateCreateTask }) {
 
     //Title
     const [isTitleValid, setTitleValid] = useState(false);
-    const [titleError, setTitleError] = useState("");
+    const [titleError, setTitleError] = useState(null);
     const handleTitleChange = (title) => {
-        if (title.length < 3) {
+        setTask({ ...task, title: title });
+        if (titleError !== null)
+            setTitleError(null);
+    }
+
+    const checkTitleValid = () => {
+        if (task.title.length < 3) {
             setTitleValid(false);
             setTitleError("Title must contain at least 3 characters");
-        } else {
-            setTitleValid(true);
+            return false;
         }
 
-        setTask({ ...task, title: title });
+        setTitleValid(true);
+        return true;
     }
 
     //Description
@@ -51,8 +61,12 @@ export default function NewTask({ day, terminateCreateTask }) {
     //Create Task
     const handleCreateTask = (event) => {
         event.preventDefault();
-        setIsLoading(true);
         setSubmissionError("");
+
+        if (!checkTitleValid())
+            return;
+
+        setIsLoading(true);
         postTask();
     }
 
@@ -88,7 +102,6 @@ export default function NewTask({ day, terminateCreateTask }) {
                 type="text"
                 placeholder="Title"
                 onChange={handleTitleChange}
-                isValid={isTitleValid}
                 errorMessage={titleError}
             />
 
@@ -96,14 +109,12 @@ export default function NewTask({ day, terminateCreateTask }) {
             <InputTextArea
                 placeholder="Description"
                 value={task.description}
-                setValue={handleDescriptionChange}
-                isValid={isTitleValid}
-                errorMessage={titleError}
+                onChange={handleDescriptionChange}
             />
 
             <label>Time:</label>
             <DatePicker
-                selected={task.time}
+                selected={time}
                 onChange={handleTimeChange}
                 showTimeSelect
                 showTimeSelectOnly
@@ -112,7 +123,6 @@ export default function NewTask({ day, terminateCreateTask }) {
             />
             <label>Category:</label>
             <select value={task.category} onChange={handleCategoryChange}>
-                <option value="">Select an option</option>
                 {
                     categories.map((category, index) => (
                         <option key={index} value={category}>{category}</option>

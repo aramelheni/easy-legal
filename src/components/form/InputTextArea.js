@@ -2,12 +2,12 @@ import "./InputForm.css"
 import "./InputTextArea.css";
 import { useState } from "react";
 
-export default function InputTextArea({ value, setValue, placeholder, onChange, isValid, errorMessage }) {
+export default function InputTextArea({ value, onChange, placeholder, errorMessage }) {
     const [rows, setRows] = useState(1);
 
     const handleChange = (event) => {
         const content = event.target.value;
-        setValue(content);
+        onChange(content);
 
         let rows = content.split('\n').length;
         if (rows > 4)
@@ -27,7 +27,7 @@ export default function InputTextArea({ value, setValue, placeholder, onChange, 
                 rows={rows}
                 value={value}
             />
-            {!isValid && <p className="input-error">{errorMessage}</p>}
+            {errorMessage !== null && <p className="input-error">{errorMessage}</p>}
         </>
     );
 }
