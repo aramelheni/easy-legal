@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import LoginPage from './login';
 
 function CollapsibleExample() {
   return (
@@ -52,7 +51,7 @@ function CollapsibleExample() {
 
           {/* Right-aligned links */}
           <Nav>
-          <LinkContainer to="/login">
+          <LinkContainer to="/signin">
               <Nav.Link>login</Nav.Link>
             </LinkContainer>
   
