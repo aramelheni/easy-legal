@@ -1,6 +1,3 @@
-import { Container } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import ChatContent from './ChatWindow/ChatContent.js';
 import ContactList from './contacts/ContactList.js';
 import { useEffect, useState } from 'react';
@@ -12,12 +9,7 @@ function Chat() {
     const [chat, setChat] = useState();
 
     useEffect(() => {
-        axios.get(apiUrl + "/users/chat/0/1")
-            .then((response) => {
-                setChat(response.data.chat);
-            }).catch((error) => {
-                console.log("error getting chat: ", error)
-            });
+
     }, []);
 
     const selectChatHandler = (targetId) => {
