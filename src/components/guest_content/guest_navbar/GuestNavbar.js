@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-function CollapsibleExample() {
+function GuestNavbar() {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -66,4 +66,4 @@ function CollapsibleExample() {
   );
 }
 
-export default CollapsibleExample;
+export default GuestNavbar;
