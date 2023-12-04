@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { guestNavigationSettings } from '../../../Navigation';
 
-function GuestNavbar() {
+export default function GuestNavigationbar() {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -51,19 +52,16 @@ function GuestNavbar() {
 
           {/* Right-aligned links */}
           <Nav>
-          <LinkContainer to="/signin">
-              <Nav.Link>login</Nav.Link>
-            </LinkContainer>
-  
-            
-            <LinkContainer to="/signup">
-              <Nav.Link>Sign up</Nav.Link>
-            </LinkContainer>
+            {
+              guestNavigationSettings.map((setting, index) => (
+                <LinkContainer key={index}  to={setting.path}>
+                  <Nav.Link>{setting.title}</Nav.Link>
+                </LinkContainer>
+              ))
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
-
-export default GuestNavbar;

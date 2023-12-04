@@ -1,6 +1,6 @@
 import "./NavigationBar.css"
 import NavigationButton from "./button/NavigationButton";
-import { navigationSettings } from "../../Navigation";
+import { appNavigationSettings } from "../../../Navigation";
 
 export default function NavigationBar() {
     return (
@@ -10,8 +10,8 @@ export default function NavigationBar() {
             <div id="navbar-content">
                 <div id="buttons">
                     {
-                        navigationSettings.map((setting) => (
-                            <NavigationButton navigationSetting={setting} />
+                        appNavigationSettings.map((setting, index) => (
+                            <NavigationButton key={index} navigationSetting={setting} />
                         ))
                     }
                 </div>

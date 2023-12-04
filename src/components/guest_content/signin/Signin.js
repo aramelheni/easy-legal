@@ -1,6 +1,9 @@
+import axios from "axios";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { useState } from 'react';
+import apiUrl from "../../../apiConfig.js"
 
 const LoginPageRoot = styled.div`
   position: relative;
@@ -70,7 +73,13 @@ const DontHaveAnContainer = styled.div`
   color: #555;
 `;
 
-const LoginPage = () => {
+export default function Signin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //UI
+  const [error, setError] = useState(null);
+
   const handleFacebookLogin = () => {
     // Implement Facebook login logic
   };
@@ -78,6 +87,30 @@ const LoginPage = () => {
   const handleGoogleLogin = () => {
     // Implement Google login logic
   };
+
+  const handleSignin = () => {
+      setError(null);
+      
+      const data = {
+      email, password
+    }
+    axios.post(apiUrl + "/users/signin", data).then(response => {
+      setError(null);
+      console.log(response);
+    }).catch(error => {
+      setError("Could not login.", error);
+    });
+  }
+
+  const onEmailChange = (event) => {
+      setError(null);
+      setEmail(event.target.value);
+  }
+
+  const onPasswordChange = (event) => {
+      setError(null);
+      setPassword(event.target.value);
+  }
 
   return (
     <LoginPageRoot>
@@ -88,18 +121,18 @@ const LoginPage = () => {
       <ContentContainer>
         <EmailFormGroup>
           <Label>Email</Label>
-          <EmailInput type="email" placeholder="email@gmail.com" />
+          <EmailInput type="email" placeholder="Enter your email" value={email} onChange={onEmailChange} />
         </EmailFormGroup>
 
         <PasswordFormGroup>
           <Label>Password</Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control type="password" placeholder="Password" value={password} onChange={onPasswordChange} />
         </PasswordFormGroup>
 
         <Form.Check label="Remember Me" />
 
-        <SignInButton variant="dark">Sign In</SignInButton>
-
+        <SignInButton variant="dark" onClick={handleSignin}>Sign In</SignInButton>
+        {error && <p>{error}</p>}
         <SocialLoginContainer>
           <SocialLoginButton variant="primary" onClick={handleFacebookLogin}>
             Sign in with Facebook
@@ -116,5 +149,3 @@ const LoginPage = () => {
     </LoginPageRoot>
   );
 };
-
-export default LoginPage;

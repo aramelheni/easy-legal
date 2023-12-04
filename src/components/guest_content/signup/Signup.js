@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
+import apiUrl from "../../../apiConfig.js"
+import { useNavigate } from "react-router-dom";
 
 const SignupPageRoot = styled.div`
   position: relative;
@@ -94,15 +97,50 @@ const DontHaveAnContainer = styled.div`
   color: #555;
 `;
 
-const SignupPage = () => {
-  const [accountType, setAccountType] = useState("lawyer");
+export default function Signup() {
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userType, setUserType] = useState("lawyer");
 
-  const handleAccountTypeChange = (e) => {
-    setAccountType(e.target.value);
+  //Hooks
+  const navigate = useNavigate();
+
+  //UI
+  const [error, setError] = useState(null);
+
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
   };
 
+  const handleFirstNameChange = (event) => {
+    setfirstName(event.target.value);
+  }
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  }
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  }
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  }
+  const handlePhoneNumberChange = (event) => {
+    setPhoneNumber(event.target.value);
+  }
+
   const handleSignup = () => {
-    // Implement your signup logic here
+    const data = {
+      email, password, phoneNumber, firstName, lastName, userType
+    }
+    axios.post(apiUrl + "/users/signup", data).then(response => {
+      setError(null);
+      navigate("/signin");
+    }).catch(error => {
+      setError("Could not signup. "+ error);
+    });
   };
 
   return (
@@ -114,20 +152,20 @@ const SignupPage = () => {
       <ContentContainer>
         <EmailFormGroup>
           <Label>Email</Label>
-          <EmailInput type="email" placeholder="email@gmail.com" />
+          <EmailInput type="email" placeholder="email@gmail.com" value={email} onChange={handleEmailChange} />
         </EmailFormGroup>
 
         <PasswordFormGroup>
           <Label>Password</Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
         </PasswordFormGroup>
 
         <AccountTypeFormGroup>
           <AccountTypeLabel>Account Type</AccountTypeLabel>
           <AccountTypeSelect
             as="select"
-            value={accountType}
-            onChange={handleAccountTypeChange}
+            value={userType}
+            onChange={handleUserTypeChange}
           >
             <option value="lawyer">Lawyer</option>
             <option value="client">Client</option>
@@ -136,12 +174,14 @@ const SignupPage = () => {
 
         <PhoneFormGroup>
           <Label>Phone Number</Label>
-          <EmailInput type="tel" placeholder="123-456-7890" />
+          <Form.Control type="tel" placeholder=".. ... ..." value={phoneNumber} onChange={handlePhoneNumberChange} />
         </PhoneFormGroup>
 
         <AddressFormGroup>
-          <Label>Address</Label>
-          <EmailInput type="text" placeholder="123 Main St, City, Country" />
+          <Label>First Name</Label>
+          <Form.Control type="text" placeholder="First name" value={firstName} onChange={handleFirstNameChange} />
+          <Label>Last Name</Label>
+          <Form.Control type="text" placeholder="Last name" value={lastName} onChange={handleLastNameChange} />
         </AddressFormGroup>
 
         <Form.Check label="Remember Me" />
@@ -149,6 +189,7 @@ const SignupPage = () => {
         <SignInButton variant="dark" onClick={handleSignup}>
           Sign Up
         </SignInButton>
+        {error && <p style={{color: "red"}}>{error}</p>}
 
         <SocialLoginContainer>
           <SocialLoginButton variant="primary">
@@ -159,10 +200,8 @@ const SignupPage = () => {
           </SocialLoginButton>
         </SocialLoginContainer>
 
-       
+
       </ContentContainer>
     </SignupPageRoot>
   );
 };
-
-export default SignupPage;
