@@ -1,6 +1,7 @@
 import "./NavigationBar.css"
 import NavigationButton from "./button/NavigationButton";
 import { navigationSettings } from "../../Navigation";
+import AccountPanel from "./account_panel/AccountPanel";
 
 export default function NavigationBar() {
     return (
@@ -15,9 +16,7 @@ export default function NavigationBar() {
                         ))
                     }
                 </div>
-                <div id="account-panel">
-                    
-                </div>
+                <AccountPanel />
             </div>
         </div >
     );
