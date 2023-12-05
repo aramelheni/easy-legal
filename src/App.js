@@ -15,7 +15,6 @@ function App() {
         </Col>
         <Col className="vh-100" lg={10} style={{ padding: "5px" }}>
           <div id="app-content">
-            <button className="success-button">Hello</button>
             <Routes>
               {
                 navigationSettings.map(navigationSetting=>(
