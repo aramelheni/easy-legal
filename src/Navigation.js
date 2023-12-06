@@ -1,4 +1,12 @@
+import Cases from "./components/cases/Cases";
+
 export const navigationSettings = [
+    {
+        title: "Cases",
+        icon: "/icons/cases.png",
+        path: "/cases",
+        element: <Cases />
+    },
     {
         title: "Calendar",
         icon: "/icons/calendar.png",
