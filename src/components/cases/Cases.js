@@ -13,10 +13,14 @@ export default function Cases() {
         }
     ]
 
+    const handleAddCase = ()=>{
+
+    }
+
     return (
         <div className="cases">
             <div className="cases-top-bar">
-                <button>Add a new document</button>
+                <button onClick={handleAddCase}>Add a new case</button>
             </div>
             <div className="cases-content">
              {
