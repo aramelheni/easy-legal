@@ -6,12 +6,12 @@ export const guestNavigationSettings = [
     {
         title: "Sign-up",
         path: "/signup",
-        element: <Signup/>
+        component: Signup
     },
     {
         title: "Sign-in",
         path: "/signin",
-        element: <Signin/>
+        component: Signin
     }
 ]
 
@@ -20,13 +20,13 @@ export const appNavigationSettings = [
         title: "About Us",
         icon: "/icons/calendar.png",
         path: "/aboutus",
-        element: <AboutUs/>
+        component: AboutUs
     },
     {
         title: "Calendar",
         icon: "/icons/calendar.png",
         path: "/app/calendar",
-        element: (
+        element: ()=>(
             <div>
                 CALENDAAAAAR
             </div>
