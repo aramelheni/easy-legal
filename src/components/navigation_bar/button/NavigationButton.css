@@ -1,4 +1,4 @@
-.navigation-button{
+.nav-button {
     height: 40px;
     width: 100%;
     background-color: transparent;
@@ -10,23 +10,31 @@
     padding: 0 20% 0 20%;
     border-radius: 10px;
     text-decoration: none;
-
-    &:hover{
-        background-color: var(--white-ghost);
-    }
 }
 
 
-.title{
+.nav-button-title {
     margin: 0;
     padding: 0;
-    color: white;
     font-size: 20;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: white;
 }
 
-.icon{
+.nav-button-active:hover {
+    background-color: var(--white-ghost);
+}
+
+.nav-button-silent {
+    opacity: 0.5;
+}
+
+.nav-button-silent img {
+    opacity: 0.5;
+}
+
+.nav-button-icon {
     width: 20px;
 }

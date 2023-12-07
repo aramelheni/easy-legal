@@ -12,7 +12,7 @@ export default function NavigationBar({ selectedCase }) {
                 <div className="navbar-buttons">
                     {
                         navigationSettings.map((setting) => (
-                            <NavigationButton navigationSetting={setting} />
+                            <NavigationButton navigationSetting={setting} selectedCase={selectedCase}/>
                         ))
                     }
                 </div>

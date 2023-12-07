@@ -31,7 +31,10 @@ export default function Cases({ selectedCase, setSelectedCase }) {
     }
 
     const handleCaseSelect = (theCase) => {
-        setSelectedCase(theCase);
+        if (theCase == selectedCase)
+            setSelectedCase(null);
+        else
+            setSelectedCase(theCase);
     }
 
     return (
@@ -48,9 +51,14 @@ export default function Cases({ selectedCase, setSelectedCase }) {
             </div>
             <div className="cases-content">
                 {
-                    (cases != null && selectedCase != null) &&
+                    (cases != null) &&
                     cases.map((theCase, index) => (
-                        <CaseItem key={index} theCase={theCase} onSelect={handleCaseSelect} isSelected={selectedCase._id === theCase._id} />
+                        <CaseItem
+                            key={index}
+                            theCase={theCase}
+                            onSelect={handleCaseSelect}
+                            isSelected={selectedCase != null && selectedCase._id === theCase._id}
+                        />
                     ))
                 }
             </div>

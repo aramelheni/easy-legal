@@ -59,7 +59,7 @@
     margin: 0;
     color: white;
     overflow: hidden;
-    text-wrap: nowrap;
+    /* text-wrap: nowrap; */
     text-overflow: ellipsis;
 }
 
