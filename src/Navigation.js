@@ -17,29 +17,9 @@ export const guestNavigationSettings = [
 
 export const appNavigationSettings = [
     {
-        title: "About Us",
+        title: "Example",
         icon: "/icons/calendar.png",
-        path: "/aboutus",
+        path: "/example",
         component: AboutUs
-    },
-    {
-        title: "Calendar",
-        icon: "/icons/calendar.png",
-        path: "/app/calendar",
-        element: ()=>(
-            <div>
-                CALENDAAAAAR
-            </div>
-        )
-    },
-    {
-        title: "Chat",
-        icon: "/icons/chat.png",
-        path: "/app/chat",
-        element: (
-            <div>
-                CHAT
-            </div>
-        )
     }
 ]
