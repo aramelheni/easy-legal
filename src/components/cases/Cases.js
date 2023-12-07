@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Cases.css"
 import CaseItem from "./case_item/CaseItem";
 import getCases from "../../utilities/CaseUtilities";
 import Loader from "../loader/Loader.js"
+import { AppContext } from "../app/SoftwareApp.js";
 
-export default function Cases({ selectedCase, setSelectedCase }) {
+export default function Cases() {
+    const { selectedCase, setSelectedCase } = useContext(AppContext);
     const [cases, setCases] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -15,8 +17,6 @@ export default function Cases({ selectedCase, setSelectedCase }) {
             const fetchedCases = await getCases();
             if (fetchedCases != null) {
                 setCases(fetchedCases);
-                if (selectedCase == null)
-                    setSelectedCase(fetchedCases[0]);
             }
             else
                 setCases([])
