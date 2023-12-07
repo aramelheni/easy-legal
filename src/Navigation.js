@@ -1,21 +1,11 @@
 export const navigationSettings = [
     {
-        title: "Calendar",
+        title: "Example",
         icon: "/icons/calendar.png",
-        path: "/calendar",
+        path: "/example",
         element: (
             <div>
-                CALENDAAAAAR
-            </div>
-        )
-    },
-    {
-        title: "Chat",
-        icon: "/icons/chat.png",
-        path: "/chat",
-        element: (
-            <div>
-                CHAT
+                Example Page
             </div>
         )
     }
