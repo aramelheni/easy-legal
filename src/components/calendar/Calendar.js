@@ -114,11 +114,9 @@ export default function Calendar() {
         const setup = async () => {
             //Fetch categories from the server
             setIsLoading(true);
-            let areCategoriesFetched = false;
             const fetchCategories = async () => {
                 axios.get(apiUrl + "/task-categories").then(response => {
                     setTaskCategories(response.data.categories);
-                    areCategoriesFetched = true;
                 }).catch(error => {
                     console.log("Could not fetch task categories: ", error);
                 });
