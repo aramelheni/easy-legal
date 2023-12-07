@@ -15,9 +15,7 @@ export default function NavigationBar() {
                         ))
                     }
                 </div>
-                <div id="account-panel">
-                    
-                </div>
+                <AccountPanel />
             </div>
         </div >
     );
