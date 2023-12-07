@@ -1,11 +1,20 @@
 import "./CaseItem.css"
 
-export default function CaseItem({ title, status }) {
+export default function CaseItem({ theCase, onSelect, isSelected }) {
+    const { title, status } = theCase;
+
+    const handleSelect = () => {
+        onSelect(theCase);
+    }
+
     return (
-        <div className="case-item">
+        <div className="case-item" onClick={handleSelect}>
             <p className="case-title">{title}</p>
             <div>
-                <p className={status=="Open"? "case-status-open":"case-status-closed"}>{status}</p>
+                {isSelected && <p className="case-selected">Selected</p>}
+            </div>
+            <div>
+                <p className={status === "open" ? "case-status-open" : "case-status-closed"}>{status}</p>
             </div>
             <div>
                 <p>06 12 2023</p>

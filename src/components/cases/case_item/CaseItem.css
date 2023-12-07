@@ -1,11 +1,15 @@
 .case-item{
     display: grid;
-    grid-template-columns: 40% 20% 25% 15%;
+    grid-template-columns: 30% 10% 20% 20% 20%;
     background-color: white;
     width: 100%;
     border: 2px solid rgb(233, 233, 233);
     border-radius: 10px;
     padding: 10px;
+}
+
+.case-item:hover{
+    background-color: rgb(238, 238, 238);
 }
 
 .case-item p{
@@ -16,17 +20,25 @@
     font-size: 17px;
 }
 
-.case-status-open{
-    border: 1px solid rgb(144, 144, 144);
+.case-selected{
     border-radius: 10px;
+    border: 1px solid rgb(227, 227, 227);
     width:fit-content;
     padding: 0 10px 0 10px;
 }
 
-.case-status-closed{
-    border: 1px solid rgb(144, 144, 144);
+.case-status-open{
     border-radius: 10px;
     width:fit-content;
     padding: 0 10px 0 10px;
-    background-color: rgb(98, 82, 219));
+    background-color: rgb(56, 86, 255);
+    color: white;
+}
+
+.case-status-closed{
+    color: white;
+    border-radius: 10px;
+    width:fit-content;
+    padding: 0 10px 0 10px;
+    background-color: rgb(126, 121, 160);
 }

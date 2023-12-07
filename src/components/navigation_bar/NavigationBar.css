@@ -1,8 +1,8 @@
-#navigation-bar{
+#navigation-bar {
     height: 100%;
     width: 100%;
     box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.3);
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,23 +10,24 @@
     padding-bottom: 10px;
 }
 
-#navbar-logo-text{
+#navbar-logo-text {
     color: var(--secondary-color);
     font-weight: bold;
     font-size: 25px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
-#navbar-content{
+
+#navbar-content {
     width: 100%;
     height: 100%;
-    display :flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
-#buttons{
+.navbar-buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,7 +38,32 @@
     flex-grow: 1;
 }
 
-.horizontal-line{
+.navbar-case-panel {
+    background-color: var(--white-ghost);
+    width: 93%;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-case-title{
+    font-size: 14px;
+}
+
+.navbar-case-panel p {
+    margin: 0;
+    color: white;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+.horizontal-line {
     margin: 0px;
     width: 90%;
     border-bottom: 1px solid white;

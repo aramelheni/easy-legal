@@ -22,6 +22,19 @@
     font-size: 15px;
 }
 
+.cases-content-columns{
+    height: 30px;
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    font-weight: bold;
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.cases-content-columns p{
+    margin: 0;
+}
+
 .cases-content {
     flex: 1;
     
