@@ -1,9 +1,10 @@
+import Spinner from "../loaders/Spinner";
 import "./Loader.css"
 
 export default function Loader(){
     return(
         <div className="loader">
-            <img src="/icons/loader.png" alt="Loading"/>
+            <Spinner/>
         </div>
     );
 }

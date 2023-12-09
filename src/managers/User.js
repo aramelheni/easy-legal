@@ -2,21 +2,92 @@ import axios from "axios";
 import apiUrl from "../apiConfig";
 import { jwtDecode } from "jwt-decode";
 import { createContext, useContext, useState } from 'react';
+import { capitalizeFirst } from "../components/utilities/TextUtilities";
 
 const isSignedIn = () => {
-    console.log("token:", localStorage.getItem("token"));
     return localStorage.getItem("token") != null;
 }
 
+const getUserRole = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            return decodedToken.user.role;
+        } catch (error) {
+            console.error("Token decoding error:", error);
+            return "ROLE_ERR";
+        }
+    }
+
+    return null;
+}
+
+const getUserFirstName = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            return capitalizeFirst(decodedToken.user.firstName);
+        } catch (error) {
+            console.error("Token decoding error:", error);
+        }
+    }
+    return null;
+}
+
+const getUserLastName = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            return capitalizeFirst(decodedToken.user.lastName);
+        } catch (error) {
+            console.error("Token decoding error:", error);
+        }
+    }
+    return null;
+}
+
+const getUserFullName = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            const firstName = capitalizeFirst(decodedToken.user.firstName);
+            const lastName = capitalizeFirst(decodedToken.user.lastName);
+            return firstName + " " + lastName;
+        } catch (error) {
+            console.error("Token decoding error:", error);
+        }
+    }
+
+    return null;
+}
+
 const initialUserContextValue = {
-    user: null,
     isSignedIn,
+    getUserRole,
+    getUserFullName,
+    getUserFirstName,
+    getUserLastName,
     signIn: null,
-    signOut: null
+    signOut: null,
 }
 const UserContext = createContext(initialUserContextValue);
+export function useUserContext() {
+    return useContext(UserContext);
+}
 
 export const UserProvider = ({ children }) => {
+    // const updateCurrentUserInfo = () => {
+    //     axios.get(apiUrl + "/users/currentUser").then(response => {
+
+    //     }).catch(error => {
+    //         console.log("Failed getting current user's info:", error);
+    //     });
+    // };
+
     const signIn = (email, password, callback) => {
         const body = { email, password }
 
@@ -24,7 +95,7 @@ export const UserProvider = ({ children }) => {
             console.log("successful");
             const token = response.data.token;
             localStorage.setItem("token", token);
-            setUserContextValue({ ...userContextValue, user: response.data.user });
+
             callback(null);
         }).catch(error => {
             callback("Could not sign in: " + error);
@@ -35,7 +106,7 @@ export const UserProvider = ({ children }) => {
         localStorage.removeItem('token');
     }
 
-    const [userContextValue, setUserContextValue] = useState({
+    const [userContextValue, /*setUserContextValue*/] = useState({
         ...initialUserContextValue,
         signIn,
         signOut
@@ -44,36 +115,4 @@ export const UserProvider = ({ children }) => {
     return (<UserContext.Provider value={userContextValue}>
         {children}
     </UserContext.Provider>);
-}
-
-export function useUser() {
-    return useContext(UserContext);
-}
-
-const userRole = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        try {
-            const decodedToken = jwtDecode(token);
-            return decodedToken.userRole;
-        } catch (error) {
-            console.error("Token decoding error:", error);
-        }
-    }
-
-    return null;
-}
-
-const userFullName = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-        try {
-            const decodedToken = jwtDecode(token);
-            return decodedToken.userRole;
-        } catch (error) {
-            console.error("Token decoding error:", error);
-        }
-    }
-
-    return null;
 }

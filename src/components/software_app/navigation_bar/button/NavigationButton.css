@@ -1,32 +1,40 @@
-.navigation-button{
+.navigation-button {
     height: 40px;
     width: 100%;
     background-color: transparent;
     padding: 0;
-    display: flex;
+
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 1fr;
     align-items: center;
-    justify-content: left;
+
     gap: 10px;
-    padding: 0 20% 0 20%;
     border-radius: 10px;
     text-decoration: none;
+    
+    color: white;
+}
 
-    &:hover{
-        background-color: var(--white-ghost);
-    }
+.inactive:hover {
+    background-color: var(--white-ghost);
+}
+
+.active {
+    background-color: rgba(255, 255, 255, 0.287);
 }
 
 
-.title{
+.title {
     margin: 0;
     padding: 0;
-    color: white;
     font-size: 20;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.icon{
+.icon {
     width: 20px;
+    justify-self: right;
 }

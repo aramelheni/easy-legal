@@ -2,7 +2,8 @@ import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../../managers/User";
+import { useUserContext } from "../../../managers/User";
+import Loader from "../../utilities/loader/Loader.js"
 
 const LoginPageRoot = styled.div`
   position: relative;
@@ -73,7 +74,8 @@ const DontHaveAnContainer = styled.div`
 `;
 
 export default function Signin() {
-  const {signIn} = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+  const {signIn} = useUserContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -91,8 +93,10 @@ export default function Signin() {
   const navigate = useNavigate();
   const handleSignin = () => {
     setError(null);
-
+    setIsLoading(true);
+    
     signIn(email, password, (error) => {
+      setIsLoading(false);
       if (error) {
         setError(error);
       } else {
@@ -114,6 +118,7 @@ export default function Signin() {
 
   return (
     <LoginPageRoot>
+      {isLoading && <Loader/>}
       <BackgroundImage
         alt=""
         src="/vector-justice-lawyer-logo-and-symbols-template-icons-app.jpg"

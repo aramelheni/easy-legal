@@ -91,19 +91,13 @@ const SocialLoginButton = styled(Button)`
   margin-right: 10px;
 `;
 
-const DontHaveAnContainer = styled.div`
-  margin-top: 20px;
-  font-size: 16px;
-  color: #555;
-`;
-
 export default function Signup() {
   const [firstName, setfirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [userType, setUserType] = useState("lawyer");
+  const [role, setRole] = useState("lawyer");
 
   //Hooks
   const navigate = useNavigate();
@@ -111,8 +105,8 @@ export default function Signup() {
   //UI
   const [error, setError] = useState(null);
 
-  const handleUserTypeChange = (e) => {
-    setUserType(e.target.value);
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
   };
 
   const handleFirstNameChange = (event) => {
@@ -133,7 +127,7 @@ export default function Signup() {
 
   const handleSignup = () => {
     const data = {
-      email, password, phoneNumber, firstName, lastName, userType
+      email, password, phoneNumber, firstName, lastName, role
     }
     axios.post(apiUrl + "/users/signup", data).then(response => {
       setError(null);
@@ -164,8 +158,8 @@ export default function Signup() {
           <AccountTypeLabel>Account Type</AccountTypeLabel>
           <AccountTypeSelect
             as="select"
-            value={userType}
-            onChange={handleUserTypeChange}
+            value={role}
+            onChange={handleRoleChange}
           >
             <option value="lawyer">Lawyer</option>
             <option value="client">Client</option>
