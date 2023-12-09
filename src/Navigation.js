@@ -1,3 +1,4 @@
+import Chat from "./components/Chat/Chat.js";
 import AccessDenied from "./components/error_pages/AccessDenied.js";
 import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
@@ -17,12 +18,13 @@ export const guestNavigationSettings = [
 
 export const appNavigationSettings = [
     {
-        title: "Client Page Exp1",
-        icon: "/icons/calendar.png",
-        path: "/example1",
-        allowedRoles: ["client"],
+        title: "Chat",
+        icon: "/icons/chat.png",
+        path: "/chats",
+        allowedRoles: [],
+        customPaper: true,
         roleFailurePath:"/",
-        component: ()=><p>This is the first client page</p>
+        component: Chat
     },
     {
         title: "Client Page Exp2",

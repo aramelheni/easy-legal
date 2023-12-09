@@ -12,29 +12,6 @@
   font-family: "mying";
 }
 
-.app-content{
-  width: 100%;
-  height: 100%;
-  padding: 0px;
-
-  display: grid;
-  grid-template-rows: 1fr;
-  
-  overflow-y: auto;
-}
-
-.app-col{
-  padding: 0px;
-  margin: 0px;
-}
-
-.app-paper{
-  background-color: var(--secondary-color);
-  height: 100%;
-  padding: 10px;
-  border-radius: 10px;
-}
-
 .horizontal-line-secondary{
   margin: auto;
   width: 90%;

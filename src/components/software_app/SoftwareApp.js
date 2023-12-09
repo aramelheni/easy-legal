@@ -4,18 +4,25 @@ import PrivateRoute from "../../PrivateRoute.js";
 import { UserProvider } from "../../managers/User.js";
 import { Col, Container, Row } from "react-bootstrap";
 import { Navigate, Route, Routes } from "react-router-dom";
+import "./SoftwareApp.css";
 
 export default function SoftwareApp() {
     const createRouteElement = (navigationSetting) => {
+        const component = (
+            <div className={navigationSetting.customPaper ? "" : "app-paper"}>
+                <navigationSetting.component />
+            </div>
+        );
+
         if (navigationSetting.allowedRoles.length === 0)
-            return <navigationSetting.component />
+            return component;
         else
             return (
                 <PrivateRoute
                     allowedRoles={navigationSetting.allowedRoles}
                     failurePath={navigationSetting.roleFailurePath}
                 >
-                    <navigationSetting.component />
+                    {component}
                 </PrivateRoute>
             );
     }

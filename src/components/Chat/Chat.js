@@ -9,7 +9,7 @@ function Chat() {
     const [chat, setChat] = useState();
 
     useEffect(() => {
-
+        
     }, []);
 
     const selectChatHandler = (targetId) => {
