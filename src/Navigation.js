@@ -1,3 +1,4 @@
+import AccessDenied from "./components/error_pages/AccessDenied.js";
 import AboutUs from "./components/guest_content/about_us/AboutUs.js";
 import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
@@ -20,6 +21,15 @@ export const appNavigationSettings = [
         title: "Example",
         icon: "/icons/calendar.png",
         path: "/example",
+        allowedRoles: ["client"],
+        roleFailurePath:"",
         component: AboutUs
+    }
+]
+
+export const invisibleNavigationSettings = [
+    {
+        path: "/access-denied",
+        component: AccessDenied
     }
 ]

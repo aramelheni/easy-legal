@@ -1,6 +1,7 @@
 import "./NavigationBar.css"
 import NavigationButton from "./button/NavigationButton";
 import { appNavigationSettings } from "../../../Navigation";
+import AccountPanel from "./account_panel/AccountPanel";
 
 export default function NavigationBar() {
     return (

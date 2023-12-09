@@ -1,9 +1,8 @@
-import axios from "axios";
-import React from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useState } from 'react';
-import apiUrl from "../../../apiConfig.js"
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../../managers/User";
 
 const LoginPageRoot = styled.div`
   position: relative;
@@ -74,6 +73,7 @@ const DontHaveAnContainer = styled.div`
 `;
 
 export default function Signin() {
+  const {signIn} = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -88,28 +88,28 @@ export default function Signin() {
     // Implement Google login logic
   };
 
+  const navigate = useNavigate();
   const handleSignin = () => {
-      setError(null);
-      
-      const data = {
-      email, password
-    }
-    axios.post(apiUrl + "/users/signin", data).then(response => {
-      setError(null);
-      console.log(response);
-    }).catch(error => {
-      setError("Could not login.", error);
-    });
+    setError(null);
+
+    signIn(email, password, (error) => {
+      if (error) {
+        setError(error);
+      } else {
+        navigate("/");
+        window.location.reload();
+      }
+    })
   }
 
   const onEmailChange = (event) => {
-      setError(null);
-      setEmail(event.target.value);
+    setError(null);
+    setEmail(event.target.value);
   }
 
   const onPasswordChange = (event) => {
-      setError(null);
-      setPassword(event.target.value);
+    setError(null);
+    setPassword(event.target.value);
   }
 
   return (
