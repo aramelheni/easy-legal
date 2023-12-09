@@ -6,12 +6,6 @@
   --dark-ghost: rgba(14, 0, 65, 0.168);
 }
 
-#app{
-  background-color: var(--primary-color);
-  height: 100vh;
-  font-family: "mying";
-}
-
 .horizontal-line-secondary{
   margin: auto;
   width: 90%;

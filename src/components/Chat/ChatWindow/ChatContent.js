@@ -1,38 +1,87 @@
 import "./ChatContent.css"
 import ChatMessage from "./ChatMessage";
+import { useUserContext } from "../../../managers/User.js"
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { socketio } from "../../../managers/Socket.js";
+
 function ChatContent({ chat }) {
-    if (chat == undefined)
-        return (<p>No Chat</p>);
+    const { getUserId } = useUserContext();
+    const myId = getUserId();
+
+    let chatTitle = "Empty Chat";
+    chat.targetIds.forEach(targetUser => {
+        if (targetUser._id != myId) {
+            chatTitle += targetUser._id;
+        }
+    });
+
+    //Messages
+    const messagesContainerRef = useRef();
+    const [scrollDown, setScrollDown] = useState(true);
+    const [messages, setMessagesState] = useState([]);
+
+    //Message field
+    const [message, setMessage] = useState("");
+    const handleSubmitMessage = (e) => {
+        e.preventDefault();
+        if (message == null || message.length == 0)
+            return;
+
+        socketio.emit("chat message", message);
+        setMessage("");
+    };
+    const onMessageChange = (e) => {
+        const message = e.target.value;
+        setMessage(message);
+    }
+
+    useEffect(() => {
+        socketio.on('chat message', message => {
+            setMessages(messages => [...messages, message])
+        })
+    }, [])
+
+
+    const setMessages = (newMessages) => {
+        setMessagesState(newMessages);
+        requestAnimationFrame(()=>{
+            //scroll down to قاع الهامور
+            if (messagesContainerRef.current) {
+                messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+            }
+        })
+    }
 
     return (
-        <div className="app-paper window">
-            <div className="contact-name">
-                <div className="beautify">
-                    <p>{chat.ids[1] == 1? "zeineb" : chat.ids[1] == 2? "mouhib" : "mokni"}</p>
-
+        <div className="chat-content">
+            {chat && <>
+                <div className="chat-top-bar">
+                    <p className="beautify">{chatTitle}</p>
                 </div>
 
-            </div>
-            <div className="line" />
-
-            <div className="conversation beautify" >
-                {
-                    chat.messages.map(message=>(
-                        <ChatMessage message={message} />
-                    ))
-                }
-            </div>
-            <div className="line" />
-            <div className="text-input" >
-                <div className="beautify">
-                    <p>ahhhhhh</p>
+                <div className="chat-messages beautify" ref={messagesContainerRef} >
+                    {
+                        messages.map((message, index) => (
+                            <ChatMessage key={index} message={message} />
+                        ))
+                    }
                 </div>
-                <div>
-                    <button className="send-button" > b </button>
-                </div>
-
-            </div>
-
+                <form className="chat-bottom-bar" onSubmit={handleSubmitMessage}>
+                    <input
+                        className="chat-message-field"
+                        type="text"
+                        placeholder="Write your message..."
+                        value={message}
+                        onChange={onMessageChange}
+                    />
+                    <div className="bottom-bar-buttons">
+                        <button className="send-button" type="submit">
+                            <img src="/icons/send.png" />
+                        </button>
+                    </div>
+                </form>
+            </>}
         </div>
     );
 }

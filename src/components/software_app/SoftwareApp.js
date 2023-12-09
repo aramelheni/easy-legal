@@ -29,30 +29,26 @@ export default function SoftwareApp() {
 
     return (
         <UserProvider>
-            <Container id="app" fluid>
-                <Row>
-                    <Col className="vh-100" lg={2} style={{ padding: "0px" }}>
-                        <NavigationBar />
-                    </Col>
-                    <Col className="vh-100" lg={10} style={{ padding: "5px" }}>
-                        <div id="app-content">
-                            <Routes>
-                                {
-                                    appNavigationSettings.map((navigationSetting, index) => (
-                                        <Route
-                                            key={index}
-                                            path={navigationSetting.path}
-                                            element={createRouteElement(navigationSetting)}
-                                        />
-                                    ))
-                                }
-                                <Route path="*" element={<Navigate to="/" />} />
-                                <Route path="/" element={<Navigate to={appNavigationSettings[0].path} />} />
-                            </Routes>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+            <div id="app">
+                <div className="app-col" style={{ padding: "0px" }}>
+                    <NavigationBar />
+                </div>
+                <div className="app-col app-content">
+                    <Routes>
+                        {
+                            appNavigationSettings.map((navigationSetting, index) => (
+                                <Route
+                                    key={index}
+                                    path={navigationSetting.path}
+                                    element={createRouteElement(navigationSetting)}
+                                />
+                            ))
+                        }
+                        <Route path="*" element={<Navigate to="/" />} />
+                        <Route path="/" element={<Navigate to={appNavigationSettings[0].path} />} />
+                    </Routes>
+                </div>
+            </div>
         </UserProvider>
     );
 }
