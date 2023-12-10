@@ -2,7 +2,6 @@ import "./ChatContent.css"
 import ChatMessage from "./ChatMessage";
 import { useUserContext } from "../../../managers/User.js"
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { socketio } from "../../../managers/Socket.js";
 
 function ChatContent({ chat }) {
@@ -18,7 +17,6 @@ function ChatContent({ chat }) {
 
     //Messages
     const messagesContainerRef = useRef();
-    const [scrollDown, setScrollDown] = useState(true);
     const [messages, setMessagesState] = useState([]);
 
     //Message field
@@ -28,7 +26,7 @@ function ChatContent({ chat }) {
         if (message == null || message.length == 0)
             return;
 
-        socketio.emit("chat message", message);
+        socketio.emit("chat message", chat._id, myId, message);
         setMessage("");
     };
     const onMessageChange = (e) => {
@@ -37,15 +35,17 @@ function ChatContent({ chat }) {
     }
 
     useEffect(() => {
-        socketio.on('chat message', message => {
-            setMessages(messages => [...messages, message])
+        socketio.on('chat message', (chatId, senderId, message) => {
+            if (chatId._id == chat._id) {
+                setMessages(messages => [...messages, message])
+            }
         })
     }, [])
 
 
     const setMessages = (newMessages) => {
         setMessagesState(newMessages);
-        requestAnimationFrame(()=>{
+        requestAnimationFrame(() => {
             //scroll down to قاع الهامور
             if (messagesContainerRef.current) {
                 messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
