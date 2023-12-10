@@ -17,3 +17,7 @@
   width: 90%;
   border-bottom: 1px solid var(--primary-color);
 }
+
+.no-margin{
+  margin: 0;
+}

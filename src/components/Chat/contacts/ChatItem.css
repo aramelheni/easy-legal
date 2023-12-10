@@ -16,6 +16,9 @@
     padding-left: 10px;
     padding-right: 10px;
 
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+
     &:hover{
         background-color: var(--dark-ghost);
     }

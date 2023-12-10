@@ -80,6 +80,19 @@ const getUserFullName = () => {
     return null;
 }
 
+const getUser = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            return jwtDecode(token).user;
+        } catch (error) {
+            console.error("Token decoding error:", error);
+        }
+    }
+
+    return null;
+}
+
 const initialUserContextValue = {
     isSignedIn,
     getUserRole,
@@ -87,6 +100,7 @@ const initialUserContextValue = {
     getUserFirstName,
     getUserLastName,
     getUserId,
+    getUser,
     signIn: null,
     signOut: null,
 }
