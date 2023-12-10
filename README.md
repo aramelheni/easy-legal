@@ -7,7 +7,7 @@
   <samp>
    <b>「 Front-end project 」</b>
     <br>
-    「 Made with 🤍 by Youssef Jaziri, Aram El Hani, Ahmed Khemiri, Zeineb Ben Dhiaf  」
+    「 Made with 🤍 by Youssef Jaziri, Aram El Heni, Ahmed Khemiri, Zeineb Ben Dhiaf  」
     <br>
     <br>
     <!--<img src="https://media.tenor.com/edLpuIZZ4X4AAAAC/better-call-saul-breaking-bad.gif"></img>-->
