@@ -21,11 +21,6 @@ function Chat() {
         
     }, []);
 
-    const setMessages = (messages) => {
-        console.log("chat was", chat, "and will become", { ...chat, messages });
-        setChat({ ...chat, messages })
-    }
-
     const onSelectChat = (chat) => {
         setChat(chat);
     }
@@ -35,7 +30,7 @@ function Chat() {
     const onAddContactPressed = () => {
         setIsAddingContact(!isAddingContact);
     }
-    const onSelectNewContact = (user) => {
+    const onSelectNewChat = (user) => {
         setIsAddingContact(false);
 
         const chat = {
@@ -60,10 +55,10 @@ function Chat() {
                 {
                     isAddingContact || chats.length==0?
                         <AppPaper unpadded color="rgb(247, 247, 247)">
-                            <LookupUsers onSelectUser={onSelectNewContact} />
+                            <LookupUsers onSelectUser={onSelectNewChat} />
                         </AppPaper>
                         :
-                        <ChatContent chat={chat} setMessages={setMessages} />
+                        <ChatContent chat={chat} setChat={setChat} />
                 }
             </div>
         </div >
