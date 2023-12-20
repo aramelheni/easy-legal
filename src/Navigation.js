@@ -23,7 +23,7 @@ export const appNavigationSettings = [
         path: "/chats",
         allowedRoles: [],
         customPaper: true,
-        roleFailurePath:"/",
+        roleFailurePath: "/",
         component: Chat
     },
     {
@@ -31,8 +31,8 @@ export const appNavigationSettings = [
         icon: "/icons/calendar.png",
         path: "/example2",
         allowedRoles: ["client"],
-        roleFailurePath:"/",
-        component: ()=><p>This is the second client page</p>
+        roleFailurePath: "/",
+        component: () => <p>This is the second client page</p>
     }
 ]
 
@@ -43,6 +43,6 @@ export const boldNavigationSettings = [
         component: AccessDenied
     }
 ]
-export const isCurrentRouteBold = (currentPath)=>{
-    return boldNavigationSettings.some(settings => settings.path===currentPath);
+export const isCurrentRouteBold = (currentPath) => {
+    return boldNavigationSettings.some(settings => settings.path === currentPath);
 }

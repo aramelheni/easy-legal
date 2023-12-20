@@ -31,8 +31,10 @@ function Chat() {
         })
     }, []);
 
-    const onSelectChat = (chat) => {
-        setChat(chat);
+    const onSelectChat = (newChat) => {
+        if(newChat._id === chat._id && chat._id != null)
+            return;
+        setChat(newChat);
     }
 
     //Add contact
