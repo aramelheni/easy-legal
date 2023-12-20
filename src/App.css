@@ -2,25 +2,22 @@
   --primary-color: rgb(14, 0, 65);
   --white-ghost: rgba(255, 255, 255, 0.168);
   --secondary-color: #ffffff;
-  --accent-color: #28a745;
+  --positive-color: #34e25d;
+  --dark-ghost: rgba(14, 0, 65, 0.168);
 }
 
-#app{
-  background-color: var(--primary-color);
-  height: 100vh;
-  font-family: "mying";
+.horizontal-line-secondary{
+  margin: auto;
+  width: 90%;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
-#app-content{
-  background-color: var(--secondary-color);
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.app-col{
-  padding: 0px;
+.horizontal-line-primary{
   margin: 0px;
+  width: 90%;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.no-margin{
+  margin: 0;
 }

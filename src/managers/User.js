@@ -8,6 +8,21 @@ const isSignedIn = () => {
     return localStorage.getItem("token") != null;
 }
 
+const getUserId = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            return decodedToken.user._id;
+        } catch (error) {
+            console.error("Token decoding error:", error);
+            return "ID_ERR";
+        }
+    }
+
+    return null;
+}
+
 const getUserRole = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -65,12 +80,27 @@ const getUserFullName = () => {
     return null;
 }
 
+const getUser = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        try {
+            return jwtDecode(token).user;
+        } catch (error) {
+            console.error("Token decoding error:", error);
+        }
+    }
+
+    return null;
+}
+
 const initialUserContextValue = {
     isSignedIn,
     getUserRole,
     getUserFullName,
     getUserFirstName,
     getUserLastName,
+    getUserId,
+    getUser,
     signIn: null,
     signOut: null,
 }
