@@ -1,0 +1,33 @@
+.account-panel{
+    width: 93%;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--white-ghost);
+
+    padding: 5%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    font-weight: bold;
+    gap: 15px;
+}
+
+.account-name{
+    color: white;
+    font-size: 17px;
+    margin: 0;
+}
+.profile-picture{
+    width: 40px;
+}
+.account-type{
+    color: rgba(255, 255, 255, 0.792);
+    font-weight:normal;
+    margin: 0;
+}
+
+.textual-content{
+}
