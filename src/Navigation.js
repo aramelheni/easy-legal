@@ -1,3 +1,4 @@
+import Chat from "./components/Chat/Chat.js";
 import AccessDenied from "./components/error_pages/AccessDenied.js";
 import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
@@ -18,11 +19,20 @@ export const guestNavigationSettings = [
 
 export const appNavigationSettings = [
     {
+        title: "Chat",
+        icon: "/icons/chat.png",
+        path: "/chats",
+        allowedRoles: [],
+        customPaper: true,
+        roleFailurePath: "/",
+        component: Chat
+    },
+    {
         title: "Calendar",
         icon: "/icons/calendar.png",
         path: "/calendar",
         allowedRoles: [],
-        roleFailurePath:"/signin",
+        roleFailurePath: "/signin",
         component: Calendar
     }
 ]
@@ -34,6 +44,6 @@ export const boldNavigationSettings = [
         component: AccessDenied
     }
 ]
-export const isCurrentRouteBold = (currentPath)=>{
-    return boldNavigationSettings.some(settings => settings.path===currentPath);
+export const isCurrentRouteBold = (currentPath) => {
+    return boldNavigationSettings.some(settings => settings.path === currentPath);
 }

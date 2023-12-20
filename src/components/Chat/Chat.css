@@ -1,0 +1,18 @@
+.chat-section{
+    padding: 0px;
+    height: 100vh;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.contacts{
+    height: 100%;
+    width: 300px;
+}
+
+.chat{
+    height: 100%;
+    flex: 1;
+}
