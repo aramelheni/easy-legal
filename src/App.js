@@ -16,8 +16,8 @@ function App() {
           <div id="app-content">
             <Routes>
               {
-                navigationSettings.map(navigationSetting=>(
-                  <Route path={navigationSetting.path} element={navigationSetting.element} />
+                navigationSettings.map((navigationSetting, index)=>(
+                  <Route key={index} path={navigationSetting.path} element={navigationSetting.element} />
                 ))
               }
             </Routes>

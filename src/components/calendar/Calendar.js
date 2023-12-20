@@ -7,6 +7,7 @@ import Loader from "../loader/Loader";
 import DayCard from './day_card/DayCard.js';
 import NewTask from './new_task/NewTask.js';
 import { useEffect } from 'react';
+import TaskPreview from './task_preview/TaskPreview.js';
 
 async function fetchTasks(fromDate, toDate) {
     let tasks;
@@ -90,7 +91,7 @@ export default function Calendar() {
         })
 
         //Fetch tasks
-        let tasks = await fetchTasks(new Date(newYear, newMonth, 1), new Date(newYear, newMonth+1, 0));
+        let tasks = await fetchTasks(new Date(newYear, newMonth, 1), new Date(newYear, newMonth + 1, 0));
         if (tasks != null) {
             tasks.forEach(task => {
                 const dayIndex = task.date.getDate();
@@ -179,10 +180,19 @@ export default function Calendar() {
         setIsCreatingTask(false);
     }
 
+    //Task selection
+    const [selectedTask, setSelectedTask] = useState(null);
+    const onSelectTask = (task) => {
+        setSelectedTask(task);
+    }
+
     return (
         <div className="calendar">
             {isLoading && <Loader />}
 
+            {(selectedTask) &&
+                <TaskPreview task={selectedTask} onClose={() => { onSelectTask(null) }}/>
+            }
             {(isCreatingTask && selectedDay != null) &&
                 <NewTask
                     day={selectedDay}
@@ -200,7 +210,14 @@ export default function Calendar() {
             <div id="days-container">
                 {
                     calendarDays.map((calendarDay, i) => (
-                        <DayCard key={i} today={today} calendarDay={calendarDay} tasks={[]} selectDay={handleSelectDay} />
+                        <DayCard
+                            key={i}
+                            today={today}
+                            calendarDay={calendarDay}
+                            tasks={[]}
+                            selectDay={handleSelectDay}
+                            onSelectTask={onSelectTask}
+                        />
                     ))
                 }
             </div>

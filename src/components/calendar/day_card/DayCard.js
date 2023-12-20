@@ -1,7 +1,7 @@
 import "./DayCard.css"
 import TaskItem from "./task_item/TaskItem";
 
-export default function DayCard({ today, calendarDay, selectDay }) {
+export default function DayCard({ today, calendarDay, selectDay, onSelectTask}) {
     //Checks whether or not a given day is today
     const isToday = (day) =>
         day.index === today.index &&
@@ -22,8 +22,8 @@ export default function DayCard({ today, calendarDay, selectDay }) {
             <p className="day-card-day">{calendarDay.day.day}</p>
             <div className="day-card-tasks">
                 {
-                    calendarDay.tasks.map(task => (
-                        <TaskItem task={task} />
+                    calendarDay.tasks.map((task, index) => (
+                        <TaskItem key={index} task={task} onSelectTask={onSelectTask} />
                     ))
                 }
             </div>
