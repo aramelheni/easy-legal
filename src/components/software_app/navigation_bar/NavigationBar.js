@@ -14,13 +14,8 @@ export default function NavigationBar() {
             <div id="navbar-content">
                 <div id="buttons">
                     {
-<<<<<<< HEAD:src/components/navigation_bar/NavigationBar.js
-                        navigationSettings.map((setting, index) => (
-                            <NavigationButton key={index} navigationSetting={setting} />
-=======
                         appNavigationSettings.map((setting, index) => (
                             <NavigationButton key={index} navigationSetting={setting} isSelected={path == setting.path} />
->>>>>>> 6fda0d85264c3675aee8fe7caad88efd7aeaeb7b:src/components/software_app/navigation_bar/NavigationBar.js
                         ))
                     }
                 </div>
