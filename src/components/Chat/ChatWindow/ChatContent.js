@@ -7,15 +7,16 @@ import Loader from "../../utilities/loader/Loader.js"
 import apiUrl from "../../../apiConfig.js";
 import axios from "axios";
 
-function ChatContent({ chat, setChat }) {
+function ChatContent({ chat, setChat, onChatIdGenerated }) {
     const [isLoading, setIsLoading] = useState(true);
     const { getUserId } = useUserContext();
     const myId = getUserId();
+    const chatIdRef = useRef(chat._id);
 
     //Generate chat title
     let chatTitle = "";
-    chat.ids?.forEach(targetUser => {
-        if (targetUser._id != myId) {
+    chat.ids.forEach(targetUser => {
+        if (targetUser._id !== myId) {
             chatTitle += targetUser.firstName + " " + targetUser.lastName;
         }
     });
@@ -27,63 +28,82 @@ function ChatContent({ chat, setChat }) {
     const [message, setMessage] = useState("");
     const onMessageChange = (e) => {
         const message = e.target.value;
+        console.log(chat);
         setMessage(message);
     }
     const handleSubmitMessage = (e) => {
         e.preventDefault();
-        if (message == null || message.length == 0)
+        if (message == null || message.length === 0)
             return;
 
-        const messageData = {
-            senderId: myId,
-            content: message,
-            date: new Date()
-        }
-        socketio.emit("chat message", chat._id, messageData);
-        if (chat._id == null) {
+        if (chatIdRef.value == null) //Attempt to create a new chat
+        {
             setIsLoading(true);
-            axios.post(apiUrl + "/chats/addNew", {
-                    ids: chat.ids,
-                initialMessage: messageData
+            axios.post(apiUrl + "/chats/add", {
+                ids: chat.ids.map(user => user._id),
+                nature: "private"
             }).then(response => {
                 const { _id, messages } = response.data;
-                console.log("Created a new chat", _id, messages)
-                setChat({ ...chat, _id, messages });
-                setIsLoading(false);
+                socketio.emit("chat message", _id, myId, message);
+                // chatIdRef.value = _id;
+                // setChat({ ...chat, _id });
+                onChatIdGenerated(_id);
+                // setMessages(messages);
+                // setIsLoading(false);
+
             }).catch(error => {
                 console.log(error);
             });
         } else {
-            //setMessages([message]);
+            socketio.emit("chat message", chatIdRef.value, myId, message);
         }
+
+        //Reset inputfield
         setMessage("");
     };
 
     useEffect(() => {
-        setIsLoading(true);
-        // socketio.on('chat message', (chatId, senderId, message) => {
-        //     if (chatId._id == chat._id) {
-        //         setMessages(messages => [...messages, message])
-        //     }
-        // })
+        chatIdRef.value = chat._id;
+        socketio.on('chat message', (chatId, messageData) => {
+            console.log(`Received a message(${messageData}) for this chat <${chatId} VS ${chatIdRef.value}`)
+            if (chatId === chatIdRef.value) {
+                addMessage(messageData)
+            }
+        })
+
         //Retrieve chat messages
-        const encodedIds = chat.ids.map(user => encodeURIComponent(user._id)).join(',');
-        const url = apiUrl + "/chats/" + encodedIds + "/messages";
+        setIsLoading(true);
+        // const encodedIds = chat.ids.map(user => encodeURIComponent(user._id)).join(',');
+        // const url = apiUrl + "/chats/" + encodedIds + "/messages";
+        const url = apiUrl + "/chats/" + chatIdRef.value + "/messages";
         axios.get(url).then(response => {
-            console.log("Received messages:", response.data);
             setMessages(response.data.messages)
-            console.log(response.data.messages);
             setIsLoading(false);
         }).catch(error => {
             console.log("Failed to retrieve messages for chat:", error);
             setIsLoading(false);
         });
-        //axios.get(url)
+
+        //Disconnect socketio
+        return () => {
+            socketio.off('chat message');
+        };
     }, [chat.ids])
 
+    const addMessage = (message) => {
+        console.log("Will add a message:", message);
+        setChat(oldChat => { return { ...oldChat, messages: [...oldChat.messages, message] } });
+        requestAnimationFrame(() => {
+            //scroll down to قاع الهامور
+            if (messagesContainerRef.current) {
+                messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+            }
+        })
+    }
 
     const setMessages = (newMessages) => {
-        setChat({ ...chat, messages: newMessages });
+        console.log("Will set messages to:", newMessages);
+        setChat(oldChat => { return { ...oldChat, messages: newMessages } });
         requestAnimationFrame(() => {
             //scroll down to قاع الهامور
             if (messagesContainerRef.current) {
@@ -102,7 +122,7 @@ function ChatContent({ chat, setChat }) {
             </div>
 
             <div className="chat-messages beautify" ref={messagesContainerRef} >
-                {!isLoading &&
+                {(!isLoading && chat.messages) &&
                     chat.messages.map((message, index) => (
                         <ChatMessage key={index} message={message} />
                     ))
@@ -118,7 +138,7 @@ function ChatContent({ chat, setChat }) {
                 />
                 <div className="bottom-bar-buttons">
                     <button className="send-button" type="submit">
-                        <img src="/icons/send.png" />
+                        <img src="/icons/send.png" alt="Send Message" />
                     </button>
                 </div>
             </form>

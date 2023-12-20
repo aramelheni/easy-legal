@@ -2,23 +2,33 @@ import ChatContent from './ChatWindow/ChatContent.js';
 import ChatList from './contacts/ChatList.js';
 import { useEffect, useState } from 'react';
 import "./Chat.css"
-import axios from 'axios';
-import apiUrl from '../../apiConfig.js';
 import LookupUsers from '../user_lookup/LookupUsers.js';
 import AppPaper from '../utilities/app_paper/AppPaper.js';
 import { useUserContext } from '../../managers/User.js';
+import apiUrl from '../../apiConfig.js';
+import axios from 'axios';
 
 function Chat() {
     const [chats, setChats] = useState([]);
     const [chat, setChat] = useState({
-        targetIds: [],
+        _id: null,
+        nature: "private",
+        ids: [],
         messages: []
     });
     const { getUser } = useUserContext();
     const sessionUser = getUser();
 
+    const fetchChats = async () => {
+        return await axios.get(apiUrl + "/chats/for/" + sessionUser._id);
+    }
+
     useEffect(() => {
-        
+        fetchChats().then(result => {
+            const chats = result.data.chats;
+            console.log("received chats:", chats);
+            setChats(chats);
+        })
     }, []);
 
     const onSelectChat = (chat) => {
@@ -34,11 +44,27 @@ function Chat() {
         setIsAddingContact(false);
 
         const chat = {
+            _id: null,
+            nature: "private",
             ids: [sessionUser, user],
-            messages: []
+            messages: [],
         }
         setChats([...chats, chat]);
         onSelectChat(chat);
+    }
+
+    const onChatIdGenerated = (newChatId) => {
+        fetchChats().then(result => {
+            const newChats = result.data.chats;
+            setChats(newChats);
+            newChats.forEach(newChat => {
+                if (newChat._id === newChatId) {
+                    onSelectChat(newChat);
+                }
+            });
+        }).catch(error => {
+            console.log("Error fetching chats:", error);
+        });
     }
 
     return (
@@ -53,12 +79,12 @@ function Chat() {
             </div>
             <div className="chat">
                 {
-                    isAddingContact || chats.length==0?
+                    isAddingContact || chats.length === 0 || chat.ids.length === 0 ?
                         <AppPaper unpadded color="rgb(247, 247, 247)">
                             <LookupUsers onSelectUser={onSelectNewChat} />
                         </AppPaper>
                         :
-                        <ChatContent chat={chat} setChat={setChat} />
+                        <ChatContent chat={chat} setChat={setChat} onChatIdGenerated={onChatIdGenerated} />
                 }
             </div>
         </div >
