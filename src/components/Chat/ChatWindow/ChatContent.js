@@ -8,12 +8,14 @@ import apiUrl from "../../../apiConfig.js";
 import axios from "axios";
 
 function ChatContent({ chat, setChat, onChatIdGenerated }) {
+    //Is true when the chat panel is loading the messages
     const [isLoading, setIsLoading] = useState(true);
+    //Get my ID
     const { getUserId } = useUserContext();
     const myId = getUserId();
     const chatIdRef = useRef(chat._id);
 
-    //Generate chat title
+    //Generate the chat title from the names of the participants
     let chatTitle = "";
     chat.ids.forEach(targetUser => {
         if (targetUser._id !== myId) {
@@ -21,16 +23,17 @@ function ChatContent({ chat, setChat, onChatIdGenerated }) {
         }
     });
 
-    //Messages
+    //Reference for the messages flexbox container. We use this to scroll down when a new messages pops up.
     const messagesContainerRef = useRef();
 
-    //Message field
+    //The content of the message input field
     const [message, setMessage] = useState("");
+    //Runs when the user changes the content of the message input field (for example, writes a new character)
     const onMessageChange = (e) => {
         const message = e.target.value;
-        console.log(chat);
         setMessage(message);
     }
+    //Runs when the user sends a message
     const handleSubmitMessage = (e) => {
         e.preventDefault();
         if (message == null || message.length === 0)
