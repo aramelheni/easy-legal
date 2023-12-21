@@ -1,5 +1,5 @@
-import Modal from '../../modal/Modal.js';
 import AppPaper from '../../utilities/app_paper/AppPaper.js';
+import Modal from '../../utilities/modal/Modal.js';
 
 export default function TaskPreview({onClose}) {
     return (<div>

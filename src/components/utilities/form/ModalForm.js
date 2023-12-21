@@ -12,7 +12,7 @@ export default function ModalForm({ header, muted, onClose, children, isLoading,
                     <p>{muted}</p>
                     {submissionError != null && <h3>{submissionError}</h3>}
                 </div>
-                <form>
+                <form className="modal-form">
                     {children}
                 </form>
             </div>

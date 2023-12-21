@@ -3,10 +3,10 @@ import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import { useState } from "react";
 import 'react-datepicker/dist/react-datepicker.css';
-import InputText from "../../form/InputText";
-import InputTextArea from "../../form/InputTextArea";
-import ModalForm from "../../form/ModalForm";
 import apiUrl from "../../../apiConfig.js"
+import ModalForm from "../../utilities/form/ModalForm.js";
+import InputText from "../../utilities/form/InputText.js";
+import InputTextArea from "../../utilities/form/InputTextArea.js";
 
 export default function NewTask({ day, taskCategories, onTaskCreationCanceled, onTaskCreationSucceeded }) {
     const now = new Date();
