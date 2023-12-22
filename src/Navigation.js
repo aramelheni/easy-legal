@@ -4,9 +4,15 @@ import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
 import Calendar from "./components/calendar/Calendar.js";
 import Cases from "./components/cases/Cases.js"
+import Home from "./components/guest_content/home/Home.js";
 
 //Navigation settings for the Guest Content
 export const guestNavigationSettings = [
+    {
+        title:"Home",
+        path: "/",
+        component: Home
+    },
     {
         title: "Sign-up",
         path: "/signup",

@@ -5,7 +5,7 @@ import { guestNavigationSettings } from '../../../Navigation';
 
 export default function GuestNavigationbar() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <Navbar  expand="lg" className="bg-body-tertiary">
       <Container>
         {/* Logo and Home link */}
         <LinkContainer to="/">
