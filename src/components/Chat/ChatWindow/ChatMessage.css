@@ -1,0 +1,31 @@
+.chat-message{
+      max-width: 70%;
+      width:fit-content;
+}
+
+.message-box {
+      background-color: #eae9f0;
+      border-radius: 10px;
+      padding: 15px;
+      word-wrap: break-word;
+}
+
+.message-time{
+      font-size: 12px;
+      margin: 0;
+}
+
+.message-content{
+      margin: 0;
+}
+
+.local-msg{
+      align-self:flex-end;
+      border-radius: 20px 0px 20px 20px;
+      text-align: right;
+}
+
+.party-msg{
+      align-self:flex-start;
+      border-radius: 0px 20px 20px 20px;
+}

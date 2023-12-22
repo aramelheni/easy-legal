@@ -1,0 +1,40 @@
+.calendar-task-item {
+    width: 100%;
+    height: 30px;
+
+    padding: 0px 5px 0px 5px;
+
+    border-radius: 5px;
+    border: 1px solid rgb(237, 237, 237);
+
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 3fr;
+
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+}
+
+.calendar-task-item:hover{
+    background-color: rgb(226, 226, 226);
+}
+
+.calendar-task-title {
+    grid-row: 1 / 1;
+    grid-column: 2 / 2;
+
+    font-size: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
+}
+
+.calendar-task-time {
+    grid-row: 1 / 1;
+    grid-column: 1/2;
+
+    font-size: 90%;
+
+    font-weight: bold;
+}
