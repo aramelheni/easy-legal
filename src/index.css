@@ -7,9 +7,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p, h1{
+  font-family: "mying";
 }
 
 @font-face {
@@ -20,4 +19,9 @@ code {
     url("https://db.onlinewebfonts.com/t/cd156407d567737d19dfca282011b360.woff")format("woff"),
     url("https://db.onlinewebfonts.com/t/cd156407d567737d19dfca282011b360.ttf")format("truetype"),
     url("https://db.onlinewebfonts.com/t/cd156407d567737d19dfca282011b360.svg#M Ying Hei PRC W48 W3")format("svg");
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }

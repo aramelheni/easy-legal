@@ -2,6 +2,7 @@ import Chat from "./components/Chat/Chat.js";
 import AccessDenied from "./components/error_pages/AccessDenied.js";
 import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
+import Calendar from "./components/calendar/Calendar.js";
 
 //Navigation settings for the Guest Content
 export const guestNavigationSettings = [
@@ -29,12 +30,12 @@ export const appNavigationSettings = [
         component: Chat
     },
     {
-        title: "Client Page Exp2",
+        title: "Calendar",
         icon: "/icons/calendar.png",
-        path: "/example2",
-        allowedRoles: ["lawyer"],
-        roleFailurePath: "/",
-        component: () => <p>This is the second client page</p>
+        path: "/calendar",
+        allowedRoles: [],
+        roleFailurePath: "/signin",
+        component: Calendar
     }
 ]
 
