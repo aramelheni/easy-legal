@@ -3,6 +3,7 @@ import AccessDenied from "./components/error_pages/AccessDenied.js";
 import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
 import Calendar from "./components/calendar/Calendar.js";
+import Cases from "./components/cases/Cases.js"
 
 //Navigation settings for the Guest Content
 export const guestNavigationSettings = [
@@ -25,6 +26,7 @@ export const appNavigationSettings = [
         icon: "/icons/chat.png",
         path: "/chats",
         allowedRoles: [],
+        requiresActiveCase: false,
         customPaper: true,
         roleFailurePath: "/",
         component: Chat
@@ -33,7 +35,9 @@ export const appNavigationSettings = [
         title: "Cases",
         icon: "/icons/cases.png",
         path: "/cases",
+        allowedRoles: [],
         requiresActiveCase: false,
+        roleFailurePath: "/",
         component: Cases
     },
     {
@@ -41,6 +45,7 @@ export const appNavigationSettings = [
         icon: "/icons/calendar.png",
         path: "/calendar",
         allowedRoles: [],
+        requiresActiveCase: true,
         roleFailurePath: "/signin",
         component: Calendar
     }

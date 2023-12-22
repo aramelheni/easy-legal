@@ -3,7 +3,7 @@ import "./Cases.css"
 import CaseItem from "./case_item/CaseItem";
 import getCases from "../../utilities/CaseUtilities";
 import Loader from "../loader/Loader.js"
-import { AppContext } from "../app/SoftwareApp.js";
+import { AppContext } from "../software_app/SoftwareApp.js";
 
 export default function Cases() {
     const { selectedCase, setSelectedCase } = useContext(AppContext);
@@ -31,7 +31,7 @@ export default function Cases() {
     }
 
     const handleCaseSelect = (theCase) => {
-        if (theCase == selectedCase)
+        if (theCase._id === selectedCase?._id)
             setSelectedCase(null);
         else
             setSelectedCase(theCase);
@@ -41,7 +41,6 @@ export default function Cases() {
         <div className="cases">
             {isLoading && <Loader />}
             <div className="cases-top-bar">
-                <button onClick={handleAddCase}>Add a new case</button>
             </div>
             <div className="cases-content-columns">
                 <p>Case Title</p>
