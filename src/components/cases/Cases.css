@@ -1,0 +1,46 @@
+.cases {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.cases-top-bar {
+    height: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.cases-top-bar button{
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    font-size: 15px;
+}
+
+.cases-content-columns{
+    height: 30px;
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    font-weight: bold;
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.cases-content-columns p{
+    margin: 0;
+}
+
+.cases-content {
+    flex: 1;
+    
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+}

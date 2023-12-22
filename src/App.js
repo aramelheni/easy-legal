@@ -1,7 +1,7 @@
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import { boldNavigationSettings, isCurrentRouteBold } from "./Navigation";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useUserContext } from "./managers/User";
 import SoftwareApp from "./components/software_app/SoftwareApp.js"
 import GuestApp from "./components/guest_content/GuestApp.js";

@@ -1,6 +1,6 @@
 .account-panel{
     width: 93%;
-    height: 100px;
+    height: 60px;
     border-radius: 10px;
     box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.3);
     background-color: var(--white-ghost);
@@ -17,15 +17,17 @@
 
 .account-name{
     color: white;
-    font-size: 17px;
+    font-size: 15px;
     margin: 0;
+    font-weight:normal;
 }
 .profile-picture{
-    width: 40px;
+    width: 50px;
+    border-radius: 100%;
 }
 .account-type{
     color: rgba(255, 255, 255, 0.792);
-    font-weight:normal;
+    font-size: 13px;
     margin: 0;
 }
 
