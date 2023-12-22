@@ -4,6 +4,7 @@ import Signin from "./components/guest_content/signin/Signin.js";
 import Signup from "./components/guest_content/signup/Signup.js";
 import Calendar from "./components/calendar/Calendar.js";
 
+//Navigation settings for the Guest Content
 export const guestNavigationSettings = [
     {
         title: "Sign-up",
@@ -17,6 +18,7 @@ export const guestNavigationSettings = [
     }
 ]
 
+//Navigation settings for the Software app
 export const appNavigationSettings = [
     {
         title: "Chat",
@@ -37,7 +39,7 @@ export const appNavigationSettings = [
     }
 ]
 
-///Routes that prevent all else from passing
+///Routes that prevent all else from rendering
 export const boldNavigationSettings = [
     {
         path: "/access-denied",
