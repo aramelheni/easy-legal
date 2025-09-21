@@ -44,6 +44,31 @@
 
 <br/>
 
-## Getting Started
-Node.js and npm installed on your machine.<br>
-Clone the repository and run [npm install]
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/aramelheni/easy-legal.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   cd easy-legal
+   npm install
+   ```
+
+3. Start the server:
+
+   ```bash
+   npm start
+   ```
+
+## Contributing
+
+We welcome contributions! See the [CONTRIBUTING](CONTRIBUTING.md) file for details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
