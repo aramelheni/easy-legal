@@ -15,8 +15,6 @@
   </samp>
 </p>
 
-
-
 <!-- About Section -->
  # About Us
  
